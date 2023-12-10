@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Oasis Learning - About Us</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Pacifico&family=Roboto:wght@300&display=swap">
+    <style>
+        body {
+            font-family: 'Roboto', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f8f8f8;
+        }
+
+        .navbar {
+            background: linear-gradient(135deg, #3498db, #134ac1, #3b0764);
+            color: white;
+            padding: 20px;
+            display: flex;
+            justify-content: space-between;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        .navbar-logo img {
+            width: 120px;
+            height: auto;
+        }
+
+        .navbar-links {
+            display: flex;
+            list-style-type: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .nav-item {
+            margin-right: 15px;
+        }
+
+        .nav-link {
+            color: white;
+            text-decoration: none;
+            padding: 8px 15px;
+            border-radius: 5px;
+            transition: background-color 0.3s ease-in-out;
+        }
+
+        .nav-link:hover {
+            background-color: #0d47a1;
+        }
+
+        .about-us-content {
+            padding: 50px 20px;
+            text-align: center;
+        }
+
+        .about-us-title {
+            font-size: 3em;
+            margin-bottom: 20px;
+            font-family: 'Pacifico', cursive;
+            color: #03A9F4;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+        }
+
+        .about-us-description {
+            font-size: 1.5em;
+            color: #333;
+            line-height: 1.6;
+            margin-bottom: 40px;
+            font-family: 'Roboto', sans-serif;
+        }
+
+        .about-us-team {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-around;
+        }
+
+        .team-member {
+            width: 30%;
+            margin-bottom: 40px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            border-radius: 10px;
+            overflow: hidden;
+            transition: transform 0.3s ease-in-out;
+        }
+
+        .team-member:hover {
+            transform: scale(1.05);
+        }
+
+        .team-member img {
+            width: 100%;
+            height: auto;
+            border-bottom: 1px solid #ddd;
+        }
+
+        .member-info {
+            padding: 20px;
+        }
+
+        .member-name {
+            font-size: 1.5em;
+            margin: 10px 0;
+            color: #333;
+            font-family: 'Roboto', sans-serif;
+        }
+
+        .member-role {
+            font-size: 1em;
+            color: #666;
+            font-family: 'Roboto', sans-serif;
+        }
+
+        .footer {
+            background: linear-gradient(135deg, #5c6871, #134ac1, #3b0764);
+            color: white;
+            padding: 20px;
+            text-align: center;
+            margin-top: 50px;
+        }
+
+        .footer-copyright {
+            font-size: 1em;
+        }
+    </style>
+</head>
+
+<body>
+    <nav class="navbar">
+        <div class="navbar-logo">
+            <img src="oasis-learning-logo.png" alt="Oasis Learning Logo">
+        </div>
+        <ul class="navbar-links">
+            <li class="nav-item"><a href="{% url 'Home' %}" class="nav-link">Home</a></li>
+            <li class="nav-item"><a href="{% url 'Home' %}" class="nav-link">Create Video</a></li>
+            <li class="nav-item"><a href="{% url 'Home' %}" class="nav-link">Recommended Videos</a></li>
+            <li class="nav-item"><a href="{% url 'Home' %}" class="nav-link">About</a></li>
+            <li class="nav-item"><a href="{% url 'Home' %}" class="nav-link">Contact</a></li>
+            <li class="nav-item"><a href="{% url 'Logout' %}" id="logoutBtn" class="nav-link">Logout</a></li>
+        </ul>
+    </nav>
+
+    <div class="about-us-content">
+        <h1 class="about-us-title">About Us</h1>
+        <p class="about-us-description">
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer nec odio. Praesent libero. Sed cursus ante dapibus diam. Sed nisi.
+        </p>
+
+        <h2 class="features-title">Our Team</h2>
+        <div class="about-us-team">
+            <div class="team-member">
+                <img src="https://source.unsplash.com/300x200/?team-member1" alt="Team Member 1">
+                <div class="member-info">
+                    <h3 class="member-name">John Doe</h3>
+                    <p class="member-role">Founder & CEO</p>
+                </div>
+            </div>
+            <div class="team-member">
+                <img src="https://source.unsplash.com/300x200/?team-member2" alt="Team Member 2">
+                <div class="member-info">
+                    <h3 class="member-name">Jane Smith</h3>
+                    <p class="member-role">Lead Developer</p>
+                </div>
+            </div>
+            <div class="team-member">
+                <img src="https://source.unsplash.com/300x200/?team-member3" alt="Team Member 3">
+                <div class="member-info">
+                    <h3 class="member-name">Alice Johnson</h3>
+                    <p class="member-role">Creative Director</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <footer class="footer">
+        <p class="footer-copyright">&copy; Oasis Learning 2023</p>
+    </footer>
+</body>
+
+</html>
