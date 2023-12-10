@@ -11,5 +11,6 @@ urlpatterns = [
    path('Chat/', views.Chat,name='Chat'),
    path('Dashboard/', views.Dashboard,name='Dashboard')
    
+   path('getResponse', views.getResponse, name='getResponse')
    
 ]
