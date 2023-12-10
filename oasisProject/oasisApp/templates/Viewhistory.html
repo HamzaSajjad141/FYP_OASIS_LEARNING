@@ -1,3 +1,4 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
 
@@ -25,10 +26,18 @@
             box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
         }
 
-        .navbar-logo img {
-            width: 120px;
-            height: auto;
-        }
+        .navbar-logo {
+        transform: scale(6.5); /* Adjust the scale factor as needed */
+        display: flex;
+        align-items: center;
+       
+}
+
+.navbar-logo img {
+    width: 25px; /* Keep the original width */
+    height: auto;
+    margin-left: 10px;
+}
 
         .navbar-links {
             display: flex;
@@ -123,7 +132,7 @@
 <body>
     <nav class="navbar">
         <div class="navbar-logo">
-            <img src="oasis-learning-logo.png" alt="Oasis Learning Logo">
+            <img src="{% static 'images/OasisLogo.png' %}" alt="Oasis Learning Logo">
         </div>
         <ul class="navbar-links">
             <li class="nav-item"><a href="{% url 'Home' %}" class="nav-link">Home</a></li>
