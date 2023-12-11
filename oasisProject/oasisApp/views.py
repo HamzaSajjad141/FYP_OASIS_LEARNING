@@ -77,3 +77,35 @@ def UpdateUser(request):
 
 def DeleteUser(request):
     return render(request,"deleteuser.html")
+
+
+
+
+
+
+
+
+import openai
+
+openai_api_key = "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"
+openai.api_key = openai_api_key
+
+def ask_openai(userMessage):
+    completion = openai.chat.completions.create(
+    model="gpt-3.5-turbo",
+    messages=[
+        {"role": "system", "content": "You are a helpful assistant."},
+        {"role": "user", "content": userMessage}
+    ])
+    
+    answer = completion.choices[0].message.content
+    
+    return answer
+
+def getResponse(request):
+    userMessage = request.GET.get('userMessage')
+    
+    completion = ask_openai(userMessage)
+    print(completion)
+    
+    return HttpResponse(completion)
