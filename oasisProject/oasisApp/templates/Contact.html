@@ -1,0 +1,193 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Oasis Learning - Contact Us</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Pacifico&family=Roboto:wght@300&display=swap">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@500&display=swap">
+    <style>
+        body {
+            font-family: 'Roboto', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f8f8f8;
+            color: #333;
+        }
+
+        .navbar {
+            background: linear-gradient(135deg, #3498db, #134ac1, #3b0764);
+            font-family: 'Poppins', sans-serif;
+            color: white;
+            padding: 20px;
+            display: flex;
+            justify-content: space-between;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        .navbar-logo {
+        transform: scale(6.5); /* Adjust the scale factor as needed */
+        display: flex;
+        align-items: center;
+       
+                    }
+
+.navbar-logo img {
+    width: 25px; /* Keep the original width */
+    height: auto;
+    margin-left: 10px;
+}
+
+        .navbar-links {
+            display: flex;
+            list-style-type: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .nav-item {
+            margin-right: 15px;
+        }
+
+        .nav-link {
+            color: white;
+            text-decoration: none;
+            padding: 8px 15px;
+            border-radius: 5px;
+            transition: background-color 0.3s ease-in-out;
+        }
+
+        .nav-link:hover {
+            background-color: #0d47a1;
+        }
+
+        .contact-us-content {
+            padding: 50px 20px;
+            text-align: center;
+        }
+
+        .contact-us-title {
+            font-size: 3.5em;
+            margin-top: -40px;
+            margin-bottom: 20px;
+            font-family: 'Pacifico', cursive;
+            color: #03A9F4;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+        }
+
+        .contact-us-form {
+            max-width: 600px;
+            margin: 0 auto;
+            background-color: #fff;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            font-size: 1.2em;
+            margin-bottom: 8px;
+            color: #333;
+        }
+
+        .form-group input,
+        .form-group textarea {
+            width: 100%;
+            padding: 15px;
+            font-size: 1em;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            transition: box-shadow 0.3s ease-in-out;
+            box-sizing: border-box;
+        }
+
+        .form-group input:focus,
+        .form-group textarea:focus {
+            box-shadow: 0 0 10px rgba(3, 169, 244, 0.5);
+        }
+
+        .form-group textarea {
+            resize: vertical;
+        }
+
+        .submit-btn {
+            background-color: #03A9F4;
+            color: white;
+            padding: 15px 30px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 1.1em;
+            font-family: 'Roboto', sans-serif;
+            transition: background-color 0.3s ease-in-out;
+            display: block;
+            margin: 0 auto;
+        }
+
+        .submit-btn:hover {
+            background-color: #0277bd;
+        }
+
+        .footer {
+            background: linear-gradient(135deg, #5c6871, #134ac1, #3b0764);
+            color: white;
+            padding: 20px;
+            text-align: center;
+            margin-top: 50px;
+        }
+
+        .footer-copyright {
+            font-size: 1em;
+        }
+    </style>
+</head>
+
+<body>
+    <nav class="navbar">
+        <div class="navbar-logo">
+            <img src="{% static 'images/OasisLogo.png' %}" alt="Oasis Learning Logo">
+        </div>
+        <ul class="navbar-links">
+            <li class="nav-item"><a href="{% url 'Home' %}" class="nav-link">Home</a></li>
+            <li class="nav-item"><a href="{% url 'Chat' %}" class="nav-link">Chat</a></li>
+            <li class="nav-item"><a href="{% url 'Viewhistory' %}" class="nav-link">View History</a></li>
+            <li class="nav-item"><a href="{% url 'About' %}" class="nav-link">About</a></li>
+            <li class="nav-item"><a href="{% url 'Contact' %}" class="nav-link">Contact</a></li>
+            <li class="nav-item"><a href="{% url 'Logout' %}" id="logoutBtn" class="nav-link">Logout</a></li>
+        </ul>
+    </nav>
+
+    <div class="contact-us-content">
+        <h1 class="contact-us-title">Contact Us</h1>
+        <div class="contact-us-form">
+            <form action="#" method="post">
+                <div class="form-group">
+                    <label for="name">Your Name</label>
+                    <input type="text" id="name" name="name" placeholder="Enter your name" required>
+                </div>
+                <div class="form-group">
+                    <label for="email">Your Email</label>
+                    <input type="email" id="email" name="email" placeholder="Enter your email" required>
+                </div>
+                <div class="form-group">
+                    <label for="message">Your Message</label>
+                    <textarea id="message" name="message" rows="4" placeholder="Write your message here" required></textarea>
+                </div>
+                <button type="submit" class="submit-btn">Submit</button>
+            </form>
+        </div>
+    </div>
+
+    <footer class="footer">
+        <p class="footer-copyright">&copy; Oasis Learning 2023</p>
+    </footer>
+</body>
+
+</html>
