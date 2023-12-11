@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Oasis Learning - Admin Dashboard</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Pacifico&family=Roboto:wght@300&display=swap">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/chart.js">
+    <style>
+        body {
+            font-family: 'Roboto', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f8f8f8;
+            display: flex;
+            align-items: stretch;
+        }
+
+        .admin-dashboard {
+            display: flex;
+            flex: 1;
+        }
+
+        .sidebar {
+            width: 250px;
+            background: linear-gradient(135deg, #3498db, #134ac1, #3b0764);
+            color: white;
+            padding: 20px;
+            box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .logo {
+            font-size: 1.5em;
+            font-family: 'Pacifico', cursive;
+            margin-bottom: 20px;
+        }
+
+        .nav-links {
+            list-style-type: none;
+            padding: 0;
+            margin: 0;
+            width: 100%;
+        }
+
+        .nav-item {
+            margin-bottom: 15px;
+        }
+
+        .nav-link {
+            color: white;
+            text-decoration: none;
+            font-size: 1.1em;
+            transition: color 0.3s ease-in-out;
+        }
+
+        .nav-link:hover {
+            color: #ecf0f1;
+        }
+
+        .content {
+            flex: 1;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .page-title {
+            font-size: 2em;
+            margin-bottom: 20px;
+            font-family: 'Pacifico', cursive;
+            color: #03A9F4;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+        }
+
+        .info-card {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            margin-bottom: 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .info-card h2 {
+            font-size: 1.5em;
+            margin-bottom: 10px;
+            color: #333;
+        }
+
+        .info-card p {
+            color: #666;
+        }
+
+        .chart-container {
+            position: relative;
+            width: 100%;
+            max-width: 800px;
+            margin: 20px auto;
+        }
+
+        .recent-activities {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            margin-top: 20px;
+        }
+
+        .activity-item {
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+        }
+
+        .activity-icon {
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            background-color: #3498db;
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            margin-right: 10px;
+        }
+
+        .activity-description {
+            flex: 1;
+            color: #333;
+        }
+
+        .notifications {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            margin-top: 20px;
+            align-self: flex-start;
+        }
+
+        .notification-item {
+            margin-bottom: 15px;
+            padding: 10px;
+            border-radius: 5px;
+            background-color: #ecf0f1;
+            color: #333;
+        }
+
+        .footer {
+            background: linear-gradient(135deg, #5c6871, #134ac1, #3b0764);
+            color: white;
+            padding: 20px;
+            text-align: center;
+            margin-top: auto;
+        }
+
+        .footer-copyright {
+            font-size: 1em;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="admin-dashboard">
+        <div class="sidebar">
+            <div class="logo">Admin Dashboard</div>
+            <ul class="nav-links">
+                <li class="nav-item"><a href="#" class="nav-link">Dashboard</a></li>
+                <li class="nav-item"><a href="#" class="nav-link">Users</a></li>
+                <li class="nav-item"><a href="#" class="nav-link">Reports</a></li>
+                <li class="nav-item"><a href="#" class="nav-link">Settings</a></li>
+            </ul>
+            <div class="footer">
+                <p class="footer-copyright">&copy; Oasis Learning 2023</p>
+            </div>
+        </div>
+        <div class="content">
+            <h1 class="page-title">Dashboard Overview</h1>
+            <div class="info-card">
+                <h2>Total Users</h2>
+                <p>There are 500 registered users on the platform.</p>
+            </div>
+            <div class="info-card">
+                <h2>Monthly Reports</h2>
+                <p>Check the latest reports for this month's activities.</p>
+            </div>
+            <div class="chart-container">
+                <canvas id="lineChart"></canvas>
+            </div>
+            <div class="recent-activities">
+                <h2>Recent Activities</h2>
+                <div class="activity-item">
+                    <div class="activity-icon">1</div>
+                    <div class="activity-description">Added new course content.</div>
+                </div>
+                <div class="activity-item">
+                    <div class="activity-icon">2</div>
+                    <div class="activity-description">Updated user profiles.</div>
+                </div>
+                <div class="activity-item">
+                    <div class="activity-icon">3</div>
+                    <div class="activity-description">Generated monthly reports.</div>
+                </div>
+            </div>
+            <div class="notifications">
+                <h2>Notifications</h2>
+                <div class="notification-item">New user registered: John Doe</div>
+                <div class="notification-item">Monthly report ready for download.</div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            var ctx = document.getElementById('lineChart').getContext('2d');
+            var lineChart = new Chart(ctx, {
+                type: 'line',
+                data: {
+                    labels: ['January', 'February', 'March', 'April', 'May', 'June'],
+                    datasets: [{
+                        label: 'Monthly Users',
+                        data: [150, 200, 300, 250, 400, 350],
+                        borderColor: '#3498db',
+                        backgroundColor: 'rgba(52, 152, 219, 0.2)',
+                        borderWidth: 2,
+                        pointRadius: 5,
+                        pointBackgroundColor: '#3498db',
+                        pointBorderColor: '#fff',
+                        pointHoverRadius: 8,
+                    }]
+                },
+                options: {
+                    scales: {
+                        y: {
+                            beginAtZero: true
+                        }
+                    }
+                }
+            });
+        });
+    </script>
+</body>
+
+</html>

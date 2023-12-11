@@ -1,0 +1,243 @@
+{% load static %} 
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Oasis Learning - Transform Text into Captivating Videos</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Pacifico&family=Roboto:wght@300&display=swap">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@500&display=swap">
+    <style>
+        body {
+            font-family: 'Roboto', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f8f8f8;
+        }
+
+        .navbar {
+            background: linear-gradient(135deg, #3498db, #134ac1, #3b0764);
+            font-family: 'Poppins', sans-serif;  /* Add Poppins font to navbar */
+            color: white;
+            padding: 20px;
+            display: flex;
+            justify-content: space-between;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        .navbar-logo {
+        transform: scale(6.5); /* Adjust the scale factor as needed */
+        display: flex;
+        align-items: center;
+       
+}
+
+.navbar-logo img {
+    width: 25px; /* Keep the original width */
+    height: auto;
+    margin-left: 10px;
+}
+
+        .navbar-links {
+            display: flex;
+            list-style-type: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .nav-item {
+            margin-right: 15px;
+        }
+
+        .nav-link {
+            color: white;
+            text-decoration: none;
+            padding: 8px 15px;
+            border-radius: 5px;
+            transition: background-color 0.3s ease-in-out;
+        }
+
+        .nav-link:hover {
+            background-color: #0d47a1;
+        }
+
+        .hero {
+            position: relative;
+            height: 600px;
+            overflow: hidden;
+            border-bottom: 8px solid #03A9F4;
+        }
+
+        .hero img {
+            object-fit: cover;
+            width: 100%;
+            height: 100%;
+        }
+
+        .hero-content {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            text-align: center;
+            width: 80%;
+            max-width: 600px;
+            color: #fff;
+        }
+
+        .hero-title {
+            font-size: 3.5em;
+            margin: 0;
+            font-family: 'Pacifico', cursive;
+            color: #03A9F4;
+            margin-bottom: 20px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+        }
+
+        .hero-description {
+            font-size: 1.5em;
+            margin-bottom: 40px;
+            font-family: 'Roboto', sans-serif;
+            color: #fff;
+            line-height: 1.6;
+        }
+
+        .btn {
+            background-color: #03A9F4;
+            color: white;
+            padding: 15px 30px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 1.1em;
+            font-family: 'Roboto', sans-serif;
+            transition: background-color 0.3s ease-in-out;
+            display: inline-block;
+            text-decoration: none;
+        }
+
+        .btn:hover {
+            background-color: #0277bd;
+        }
+
+        .features {
+            padding: 50px 20px;
+            background-color: #b8d4ea;
+        }
+
+        .features-title {
+            font-size: 2.5em;
+            margin-bottom: 40px;
+            color: #333;
+            text-align: center;
+            font-family: 'Pacifico', cursive;
+            color: #03A9F4;
+        }
+
+        .features-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+        }
+
+        .feature-card {
+            width: 30%;
+            margin-bottom: 40px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            border-radius: 10px;
+            overflow: hidden;
+            transition: transform 0.3s ease-in-out;
+        }
+
+        .feature-card:hover {
+            transform: scale(1.05);
+        }
+
+        .feature-card img {
+            width: 100%;
+            height: auto;
+            border-bottom: 1px solid #ddd;
+        }
+
+        .feature-title {
+            font-size: 1.5em;
+            margin: 20px 0;
+            color: #333;
+            font-family: 'Roboto', sans-serif;
+            text-align: center; /* Added to center the text */
+        }
+
+        .feature-description {
+            font-size: 1em;
+            line-height: 1.5;
+            color: #666;
+            padding: 0 20px 20px;
+            font-family: 'Roboto', sans-serif;
+        }
+
+        .footer {
+            background: linear-gradient(135deg, #5c6871, #134ac1, #3b0764);
+            color: white;
+            font-family: 'Poppins', sans-serif;  /* Add Poppins font to navbar */
+            padding: 20px;
+            text-align: center;
+        }
+
+        .footer-copyright {
+            font-size: 1em;
+        }
+    </style>
+</head>
+
+<body>
+    <nav class="navbar">
+        <div class="navbar-logo">
+            <img src="{% static 'images/OasisLogo.png' %}" alt="Oasis Learning Logo">
+        </div>
+        <ul class="navbar-links">
+            <li class="nav-item"><a href="{% url 'Home' %}" class="nav-link">Home</a></li>
+            <li class="nav-item"><a href="{% url 'Chat' %}" class="nav-link">Chat</a></li>
+            <li class="nav-item"><a href="{% url 'Viewhistory' %}" class="nav-link">View History</a></li>
+            <li class="nav-item"><a href="{% url 'About' %}" class="nav-link">About</a></li>
+            <li class="nav-item"><a href="{% url 'Contact' %}" class="nav-link">Contact</a></li>
+            <li class="nav-item"><a href="{% url 'Logout' %}" id="logoutBtn" class="nav-link">Logout</a></li>
+        </ul>
+    </nav>
+
+    <div class="hero">
+        <img src="https://source.unsplash.com/1920x1080/?technology" alt="Hero Background Image">
+        <div class="hero-content">
+            <h1 class="hero-title">Unleash the Power of Text-to-Video</h1>
+            <p class="hero-description">Experience the seamless transformation of your text and images into engaging videos with our AI-powered Text-to-Video Generator.</p>
+            <a href="#" class="btn">Start Creating Now</a>
+        </div>
+    </div>
+
+    <section class="features">
+        <h2 class="features-title">Why Choose Oasis Learning?</h2>
+        <div class="features-container">
+            <div class="feature-card">
+                <img src="https://source.unsplash.com/300x200/?easy-to-use" alt="Easy to Use Icon">
+                <h3 class="feature-title">Effortless Operation</h3>
+                <p class="feature-description">Create videos without any coding knowledge or technical expertise.</p>
+            </div>
+            <div class="feature-card">
+                <img src="https://source.unsplash.com/300x200/?high-quality-output" alt="High-Quality Output Icon">
+                <h3 class="feature-title">Exceptional Output Quality</h3>
+                <p class="feature-description">Generate videos that are visually appealing and engaging for your audience.</p>
+            </div>
+            <div class="feature-card">
+                <img src="https://source.unsplash.com/300x200/?diverse-languages" alt="Diverse Languages Icon">
+                <h3 class="feature-title">Diverse Languages and Accents</h3>
+                <p class="feature-description">Produce videos in a variety of languages and accents to reach a global audience.</p>
+            </div>
+        </div>
+    </section>
+
+    <footer class="footer">
+        <p class="footer-copyright">&copy; Oasis Learning 2023</p>
+    </footer>
+</body>
+
+</html>
