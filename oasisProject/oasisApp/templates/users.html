@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Oasis Learning - Users</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Pacifico&family=Roboto:wght@300&display=swap">
+    <style>
+        body {
+            font-family: 'Roboto', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+            display: flex;
+            align-items: stretch;
+        }
+
+        .users-page {
+            display: flex;
+            flex: 1;
+            background-color: #ecf0f1;
+        }
+
+        .sidebar {
+            width: 250px;
+            height: 100vh;
+            background: linear-gradient(135deg, #3498db, #134ac1, #3b0764);
+            color: white;
+            padding: 20px;
+            box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: flex-start;
+        }
+
+        .logo {
+            font-size: 1.5em;
+            font-family: 'Pacifico', cursive;
+            margin-bottom: 20px;
+        }
+
+        .nav-links {
+            list-style-type: none;
+            padding: 0;
+            margin: 0;
+            width: 100%;
+        }
+
+        .nav-item {
+            margin-bottom: 15px;
+        }
+
+        .nav-link {
+            color: white;
+            text-decoration: none;
+            font-size: 1.1em;
+            transition: color 0.3s ease-in-out;
+            display: block;
+            padding: 10px;
+            border-radius: 5px;
+        }
+
+        .nav-link:hover {
+            background-color: #2c3e50;
+        }
+
+        .content {
+            flex: 1;
+            padding: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+        }
+
+        .title {
+            font-size: 2.5em;
+            margin-top: -20px;
+            margin-bottom: 20px;
+            font-family: 'Pacifico', cursive;
+            color: #03A9F4;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 0px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        th, td {
+            border: 1px solid #ddd;
+            padding: 15px;
+            text-align: left;
+        }
+
+        th {
+            background-color: #3498db;
+            color: white;
+        }
+
+        tr:nth-child(even) {
+            background-color: #ecf0f1;
+        }
+
+        tr:hover {
+            background-color: #d5e1e3;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="users-page">
+        <div class="sidebar">
+            <div class="logo">Admin Dashboard</div>
+            <ul class="nav-links">
+                <li class="nav-item"><a href="/Dashboard/" class="nav-link">Dashboard</a></li>
+                <li class="nav-item"><a href="/Users/" class="nav-link">Users</a></li>
+                <li class="nav-item"><a href=/AddUser/ class="nav-link">Add User</a></li>
+                <li class="nav-item"><a href=/UpdateUser/ class="nav-link">Update User</a></li>
+                <li class="nav-item"><a href=/DeleteUser/ class="nav-link">Delete User</a></li>
+            </ul>
+            
+        </div>
+        <div class="content">
+            <h1 class="title">User Information</h1>
+            <table>
+                <thead>
+                    <tr>
+                        <th>User ID</th>
+                        <th>Name</th>
+                        <th>Email</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>1</td>
+                        <td>John Doe</td>
+                        <td>john.doe@example.com</td>
+                    </tr>
+                    <tr>
+                        <td>2</td>
+                        <td>Jane Smith</td>
+                        <td>jane.smith@example.com</td>
+                    </tr>
+                    <tr>
+                        <td>3</td>
+                        <td>Michael Johnson</td>
+                        <td>michael.johnson@example.com</td>
+                    </tr>
+                    <tr>
+                        <td>4</td>
+                        <td>Alice Brown</td>
+                        <td>alice.brown@example.com</td>
+                    </tr>
+                    <tr>
+                        <td>5</td>
+                        <td>David Wilson</td>
+                        <td>david.wilson@example.com</td>
+                    </tr>
+                    <tr>
+                        <td>6</td>
+                        <td>Emma White</td>
+                        <td>emma.white@example.com</td>
+                    </tr>
+                    <tr>
+                        <td>7</td>
+                        <td>Chris Miller</td>
+                        <td>chris.miller@example.com</td>
+                    </tr>
+                    <tr>
+                        <td>8</td>
+                        <td>Sophia Lee</td>
+                        <td>sophia.lee@example.com</td>
+                    </tr>
+                    <tr>
+                        <td>9</td>
+                        <td>William Davis</td>
+                        <td>william.davis@example.com</td>
+                    </tr>
+                    <tr>
+                        <td>10</td>
+                        <td>Ella Anderson</td>
+                        <td>ella.anderson@example.com</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</body>
+
+</html>

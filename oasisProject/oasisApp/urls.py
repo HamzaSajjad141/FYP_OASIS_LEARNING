@@ -13,6 +13,6 @@ urlpatterns = [
    path('AddUser/', views.Adduser,name='AddUser'),
    path('UpdateUser/', views.UpdateUser,name='UpdateUser'),
    path('DeleteUser/', views.DeleteUser,name='DeleteUser'),
-   
+   path('Users/', views.Users,name='Users'),
    path('getResponse', views.getResponse, name='getResponse')
 ]

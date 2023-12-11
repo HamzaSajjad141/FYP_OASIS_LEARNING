@@ -78,7 +78,8 @@ def UpdateUser(request):
 def DeleteUser(request):
     return render(request,"deleteuser.html")
 
-
+def Users(request):
+    return render(request,"users.html")
 
 
 
