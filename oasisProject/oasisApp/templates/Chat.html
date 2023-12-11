@@ -3,129 +3,138 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Pacifico&family=Roboto:wght@300&display=swap">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@500&display=swap">
     <title>Chatbot</title>
     <script src="https://code.jquery.com/jquery-3.7.1.js" integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4=" crossorigin="anonymous"></script>
 
     <style>
-        header, footer {
-            background-color: #333;
-            color: #fff;
-            text-align: center;
-            padding: 10px;
-            margin:10px;
-        }
-
-        .chat-header{
-            background: linear-gradient(135deg, #4e54c8, #8f94fb);
-            color: white;
-            padding: 20px;
-            text-align: center;
-            font-size: 1.5em;
-            font-family: 'Pacifico', cursive;
-            border-bottom: 2px solid #fff;
-        }
-        footer {
-            background-color: #333;
-            color: #fff;
-            text-align: center;
-            padding: 10px;
-            margin:10px;
-        }
         body {
             font-family: 'Roboto', sans-serif;
-            background: linear-gradient(135deg, #8e44ad, #3498db);
+            background: linear-gradient(135deg, #3498db, #9b59b6);
+            display: flex;
             align-items: center;
             justify-content: center;
             height: 100vh;
+            margin: 0;
         }
-        
-        #chatbot{
-            background: white;
-            margin-left: auto;
-            margin-right: auto;
+
+        #chatbot {
+            background: #fff;
+            border-radius: 15px;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
+            overflow: hidden;
             width: 70%;
             margin-top: 50px;
-            border-radius: 10px;
-            border: 1px solid blue;
         }
 
-        .botText{
-            font-family: monospace;
-            font-size: 20px;
-            text-align: left;
-            line-height: 25px;
-            color: rgb(109,111,109);
-        }
-
-        #userInput{
-            margin-left: auto;
-            margin-right: auto;
-            margin-top: 40px;
-            width: 70%;
-            text-align: center;
-        }
-
-        #textInput{
-            border: 3px solid white;
-            border-bottom: 3px solid #afafaf;
-            font-size: 14px;
-            width:60%;
-            padding: 16px;
-            color: rgb(213, 67,41);
-        }
-
-        #buttonInput{
-            padding: 13px;
-            font-size: 20px;
-            background-color: green;
+        .chat-header {
+            background: linear-gradient(135deg, #ff6b6b, #1e90ff);
             color: white;
+            padding: 20px;
+            text-align: center;
+            font-family: 'Pacifico', cursive;
+            font-size: 1.8em;
+            border-bottom: 2px solid #fff;
         }
 
-        .userText{
-            width: 100%;
+        .chat-content {
+            padding: 20px;
+            max-height: 400px;
+            overflow-y: auto;
+        }
+
+        .message {
+            margin-bottom: 10px;
+            position: relative;
+        }
+
+        .botText,
+        .userText {
+            font-family: 'Poppins', sans-serif;
+            font-size: 16px;
+            line-height: 20px;
+            padding: 15px;
+            border-radius: 15px;
+        }
+
+        .botText {
+            background-color: #f0f0f0;
+            color: #333;
+            text-align: left;
+        }
+
+        .userText {
+            background-color: #3498db;
+            color: white;
             text-align: right;
-            font-family: monospace;
-            font-size: 20px;
-            line-height: 25px;
-            color: rgb(109,111,109);
         }
 
+        #userInput {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px;
+            background: #fff;
+            border-top: 2px solid #eee;
+            border-bottom-left-radius: 15px;
+            border-bottom-right-radius: 15px;
+        }
+
+        #textInput {
+            border: none;
+            border-bottom: 2px solid #3498db;
+            font-size: 14px;
+            width: 80%;
+            padding: 15px;
+            color: #333;
+            border-top-left-radius: 15px;
+            border-bottom-left-radius: 15px;
+        }
+
+        #buttonInput {
+            padding: 15px;
+            font-size: 14px;
+            background-color: #3498db;
+            color: white;
+            border: none;
+            border-radius: 15px;
+            cursor: pointer;
+            border-top-right-radius: 15px;
+            border-bottom-right-radius: 15px;
+        }
     </style>
     
 </head>
 <body>
 
-    <div>
-        <div id="chatbot">
-            <div class="chat-header">Oasis Chatbot</div>
-            <p class = "botText"><span></span></p>
-        </div>
-
+    <div id="chatbot">
+        <div class="chat-header">Oasis Chatbot</div>
+        <div class="chat-content" id="chat-content"></div>
         <div id="userInput">
             <input type="text" id="textInput" name="userMessage" placeholder="Type your message.."/>
-            <input type="submit" value="Submit" id="buttonInput" />
+            <button id="buttonInput">Submit</button>
         </div>
     </div>
 
     <script>
-        function getUserResponse()
-        {
+        function getUserResponse() {
             var userText = $('#textInput').val();
-            var userHTML = "<p class = 'userText'> User: <span>" + userText + "</span></p>";
+            var userHTML = "<div class='message userText'> User: <span>" + userText + "</span></div>";
 
             $('#textInput').val("");
+            $('#chat-content').append(userHTML);
 
-            $('#chatbot').append(userHTML);
-
-            $.get('/getResponse',{userMessage:userText}).done(function(data){
-                var returnedMessage = "<p class='botText'>Chatbot: <span>" + data + "</span></p>";
-                $('#chatbot').append(returnedMessage);
-            })
+            $.get('/getResponse', { userMessage: userText }).done(function(data){
+                var returnedMessage = "<div class='message botText'>Chatbot: <span>" + data + "</span></div>";
+                $('#chat-content').append(returnedMessage);
+                $('#chat-content').scrollTop($('#chat-content')[0].scrollHeight); // Auto-scroll to the bottom
+            });
         }
 
         $('#buttonInput').click(function(){
             getUserResponse();
-        })
+        });
     </script>
 </body>
 </html>
