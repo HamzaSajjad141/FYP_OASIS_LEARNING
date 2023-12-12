@@ -18,7 +18,7 @@
 
         .navbar {
             background: linear-gradient(135deg, #3498db, #134ac1, #3b0764);
-            font-family: 'Poppins', sans-serif;  /* Add Poppins font to navbar */
+            font-family: 'Poppins', sans-serif;  
             color: white;
             padding: 20px;
             display: flex;
@@ -31,14 +31,13 @@
         display: flex;
         align-items: center;
        
-}
+                    }
 
 .navbar-logo img {
     width: 25px; /* Keep the original width */
     height: auto;
     margin-left: 10px;
 }
-
         .navbar-links {
             display: flex;
             list-style-type: none;
@@ -68,19 +67,20 @@
         }
 
         .about-us-title {
-            font-size: 3em;
+            font-size: 3.5em;
             margin-bottom: 20px;
             font-family: 'Pacifico', cursive;
             color: #03A9F4;
             text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+            margin-top: -40px;
         }
 
         .about-us-description {
-            font-size: 1.5em;
-            color: #333;
+            font-size: 1.2em;
+            color: #555;
             line-height: 1.6;
             margin-bottom: 40px;
-            font-family: 'Roboto', sans-serif;
+            font-family: 'Poppins', sans-serif;
         }
 
         .about-us-team {
@@ -96,6 +96,7 @@
             border-radius: 10px;
             overflow: hidden;
             transition: transform 0.3s ease-in-out;
+            background-color: #fff;
         }
 
         .team-member:hover {
@@ -113,14 +114,14 @@
         }
 
         .member-name {
-            font-size: 1.5em;
+            font-size: 1.8em;
             margin: 10px 0;
             color: #333;
             font-family: 'Roboto', sans-serif;
         }
 
         .member-role {
-            font-size: 1em;
+            font-size: 1.2em;
             color: #666;
             font-family: 'Roboto', sans-serif;
         }
@@ -134,7 +135,7 @@
         }
 
         .footer-copyright {
-            font-size: 1em;
+            font-size: 1.2em;
         }
     </style>
 </head>
@@ -155,31 +156,31 @@
     </nav>
 
     <div class="about-us-content">
-        <h1 class="about-us-title">About Us</h1>
+        <h1 class="about-us-title">Welcome to Oasis Learning</h1>
         <p class="about-us-description">
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer nec odio. Praesent libero. Sed cursus ante dapibus diam. Sed nisi.
+            Explore a world of personalized learning designed to unlock your full potential. At Oasis Learning, we believe in the uniqueness of each learner and provide a tailored educational experience. Revolutionizing the educational landscape, we aim to empower users through an optimal and enriching educational journey.
         </p>
 
-        <h2 class="features-title">Our Team</h2>
+        <h2 class="features-title">Meet Our Team</h2>
         <div class="about-us-team">
             <div class="team-member">
-                <img src="https://source.unsplash.com/300x200/?team-member1" alt="Team Member 1">
+                <img src="{% static 'images/Hamza.png' %}" alt="Team Member 1">
                 <div class="member-info">
-                    <h3 class="member-name">John Doe</h3>
+                    <h3 class="member-name">Hamza Sajjad</h3>
                     <p class="member-role">Founder & CEO</p>
                 </div>
             </div>
             <div class="team-member">
-                <img src="https://source.unsplash.com/300x200/?team-member2" alt="Team Member 2">
+                <img src="{% static 'images/Hamza.png' %}" alt="Team Member 2">
                 <div class="member-info">
-                    <h3 class="member-name">Jane Smith</h3>
+                    <h3 class="member-name">Zaeem Yaseem</h3>
                     <p class="member-role">Lead Developer</p>
                 </div>
             </div>
             <div class="team-member">
-                <img src="https://source.unsplash.com/300x200/?team-member3" alt="Team Member 3">
+                <img src="{% static 'images/Hamza.png' %}" alt="Team Member 3">
                 <div class="member-info">
-                    <h3 class="member-name">Alice Johnson</h3>
+                    <h3 class="member-name">Umar Kamran</h3>
                     <p class="member-role">Creative Director</p>
                 </div>
             </div>

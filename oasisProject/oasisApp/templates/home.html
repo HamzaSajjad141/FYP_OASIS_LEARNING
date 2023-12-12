@@ -115,6 +115,7 @@
             transition: background-color 0.3s ease-in-out;
             display: inline-block;
             text-decoration: none;
+            font-family: 'Poppins', sans-serif;  /* Add Poppins font to navbar */
         }
 
         .btn:hover {
@@ -206,11 +207,11 @@
     </nav>
 
     <div class="hero">
-        <img src="https://source.unsplash.com/1920x1080/?technology" alt="Hero Background Image">
+        <img src="{% static 'images/Home.jpg' %}" alt="Hero Background Image">
         <div class="hero-content">
             <h1 class="hero-title">Unleash the Power of Text-to-Video</h1>
             <p class="hero-description">Experience the seamless transformation of your text and images into engaging videos with our AI-powered Text-to-Video Generator.</p>
-            <a href="#" class="btn">Start Creating Now</a>
+            <a href="/Chat/" class="btn">Start Creating Now</a>
         </div>
     </div>
 
