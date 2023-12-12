@@ -1,0 +1,164 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@500&display=swap">
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh; /* Use min-height instead of height for the body */
+            background: linear-gradient(135deg, #3498db, #9b59b6);
+        }
+
+        .navbar {
+            background: linear-gradient(135deg, #3498db, #134ac1, #3b0764);
+            font-family: 'Poppins', sans-serif;
+            color: white;
+            padding: 20px;
+            display: flex;
+            justify-content: space-between;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        .navbar-logo {
+            transform: scale(6.5);
+            display: flex;
+            align-items: center;
+        }
+
+        .navbar-logo img {
+            width: 25px;
+            height: auto;
+            margin-left: 10px;
+        }
+
+        .navbar-links {
+            display: flex;
+            list-style-type: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .nav-item {
+            margin-right: 15px;
+        }
+
+        .nav-link {
+            color: white;
+            text-decoration: none;
+            padding: 8px 15px;
+            border-radius: 5px;
+            transition: background-color 0.3s ease-in-out;
+        }
+
+        .nav-link:hover {
+            background-color: #0d47a1;
+        }
+
+        .video-container {
+            background: #fff;
+            border-radius: 15px;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
+            overflow: hidden;
+            width: 80%;
+            margin: 20px auto 40px; /* Updated margin-bottom */
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 20px;
+        }
+
+        .video-title {
+            font-size: 24px;
+            font-weight: bold;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        .video-player {
+            width: 100%;
+            height: 400px;
+            margin-bottom: 20px;
+        }
+
+        .recommendations {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .recommendation-card {
+            background-color: #f0f0f0;
+            border-radius: 15px;
+            margin: 10px;
+            padding: 15px;
+            width: 200px;
+            text-align: center;
+            transition: background-color 0.3s ease-in-out;
+        }
+
+        .recommendation-card:hover {
+            background-color: #0d47a1;
+        }
+
+        .footer {
+            background: linear-gradient(135deg, #5c6871, #134ac1, #3b0764);
+            color: white;
+            padding: 15px;
+            text-align: center;
+        }
+
+        .footer-copyright {
+            font-size: 1em;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Navbar -->
+    <nav class="navbar">
+        <div class="navbar-logo">
+            <img src="{% static 'images/OasisLogo.png' %}" alt="Oasis Learning Logo">
+        </div>
+        <ul class="navbar-links">
+            <li class="nav-item"><a href="{% url 'Home' %}" class="nav-link">Home</a></li>
+            <li class="nav-item"><a href="{% url 'Chat' %}" class="nav-link">Chat</a></li>
+            <li class="nav-item"><a href="{% url 'video' %}" class="nav-link">Video</a></li>
+            <li class="nav-item"><a href="{% url 'Viewhistory' %}" class="nav-link">View History</a></li>
+            <li class="nav-item"><a href="{% url 'About' %}" class="nav-link">About</a></li>
+            <li class="nav-item"><a href="{% url 'Contact' %}" class="nav-link">Contact</a></li>
+            <li class="nav-item"><a href="{% url 'Logout' %}" id="logoutBtn" class="nav-link">Logout</a></li>
+        </ul>
+    </nav>
+
+    <!-- Video container -->
+    <div class="video-container">
+        <div class="video-title">Creative Video Title</div>
+        <div class="video-player">
+            <!-- Your video player embed code or link goes here -->
+            <iframe width="100%" height="100%" src="https://www.youtube.com/embed/your-video-id" frameborder="0" allowfullscreen></iframe>
+        </div>
+
+        <!-- Recommended Topics -->
+        <div class="recommendations">
+            <div class="recommendation-card">Topic 1</div>
+            <div class="recommendation-card">Topic 2</div>
+            <div class="recommendation-card">Topic 3</div>
+            <!-- Add more recommendation cards as needed -->
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <p class="footer-copyright">&copy; Oasis Learning 2023</p>
+    </footer>
+</body>
+
+</html>

@@ -4,6 +4,7 @@ from django.contrib.auth.models import User
 from django.contrib.auth import authenticate,login,logout
 from django.contrib.auth.decorators import login_required
 
+
 @login_required(login_url = 'Login')
 def Home(request):
     return render(request,"home.html")
@@ -17,6 +18,7 @@ def Login(request):
         user = authenticate(request, username=username, password=passw)
         if user is not None :
             login(request,user)
+            
             return redirect('Home')
         else:
             return HttpResponse("Invalid Credentials")
@@ -64,6 +66,9 @@ def history(request):
 
 def Chat(request):
     return render(request,"Chat.html")
+
+def video(request):
+    return render(request,"video.html")
 
 def Dashboard(request):
     return render(request,"Dashboard.html")

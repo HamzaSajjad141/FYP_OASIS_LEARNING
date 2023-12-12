@@ -9,6 +9,7 @@ urlpatterns = [
    path('Contact/', views.ContactUs,name='Contact'),
    path('Viewhistory/', views.history,name='Viewhistory'),
    path('Chat/', views.Chat,name='Chat'),
+   path('video/', views.video,name='video'),
    path('Dashboard/', views.Dashboard,name='Dashboard'),
    path('AddUser/', views.Adduser,name='AddUser'),
    path('UpdateUser/', views.UpdateUser,name='UpdateUser'),
