@@ -120,13 +120,13 @@
     <script>
         function getUserResponse() {
             var userText = $('#textInput').val();
-            var userHTML = "<div class='message userText'> User: <span>" + userText + "</span></div>";
+            var userHTML = "<code><div class='message userText'> User: <span>" + userText + "</span></div></code>";
 
             $('#textInput').val("");
             $('#chat-content').append(userHTML);
 
             $.get('/getResponse', { userMessage: userText }).done(function(data){
-                var returnedMessage = "<div class='message botText'>Chatbot: <span>" + data + "</span></div>";
+                var returnedMessage = "<code><div class='message botText'>Chatbot: <span>" + data + "</span></div></code>";
                 $('#chat-content').append(returnedMessage);
                 $('#chat-content').scrollTop($('#chat-content')[0].scrollHeight); // Auto-scroll to the bottom
             });
