@@ -82,6 +82,10 @@ def Users(request):
     return render(request,"users.html")
 
 
+def managecomplaints(request):
+    return render(request,"managecomplaints.html")
+
+
 
 
 
