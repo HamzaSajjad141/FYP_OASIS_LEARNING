@@ -156,8 +156,8 @@
         }
 
         .feature-card img {
-            width: 100%;
-            height: auto;
+            width: 100%; /* Make the image take 100% of the parent container's width */
+    height: 200px;
             border-bottom: 1px solid #ddd;
         }
 
@@ -220,17 +220,17 @@
         <h2 class="features-title">Why Choose Oasis Learning?</h2>
         <div class="features-container">
             <div class="feature-card">
-                <img src="https://source.unsplash.com/300x200/?easy-to-use" alt="Easy to Use Icon">
+                <img src="{% static 'images/effortless.png' %}" alt="Easy to Use Icon">
                 <h3 class="feature-title">Effortless Operation</h3>
                 <p class="feature-description">Create videos without any coding knowledge or technical expertise.</p>
             </div>
             <div class="feature-card">
-                <img src="https://source.unsplash.com/300x200/?high-quality-output" alt="High-Quality Output Icon">
+                <img src="{% static 'images/exceptional.jpg' %}" alt="High-Quality Output Icon">
                 <h3 class="feature-title">Exceptional Output Quality</h3>
                 <p class="feature-description">Generate videos that are visually appealing and engaging for your audience.</p>
             </div>
             <div class="feature-card">
-                <img src="https://source.unsplash.com/300x200/?diverse-languages" alt="Diverse Languages Icon">
+                <img src="{% static 'images/language.jpg' %}" alt="Diverse Languages Icon">
                 <h3 class="feature-title">Diverse Languages and Accents</h3>
                 <p class="feature-description">Produce videos in a variety of languages and accents to reach a global audience.</p>
             </div>
