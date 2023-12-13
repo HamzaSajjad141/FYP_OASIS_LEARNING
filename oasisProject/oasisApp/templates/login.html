@@ -191,25 +191,33 @@
             const form = document.getElementById("login-form");
 
             form.addEventListener("submit", function (event) {
+                event.preventDefault(); // Prevent default form submission
+
                 const usernameInput = document.getElementById("id_username");
                 const passwordInput = document.getElementById("id_password");
-                let valid = true;
 
-                // Check if the username is not empty
-                if (usernameInput.value.trim() === "") {
-                    alert("Username is required");
-                    valid = false;
-                }
-
-                // Check if the password is not empty
-                if (passwordInput.value.trim() === "") {
-                    alert("Password is required");
-                    valid = false;
-                }
-
-                if (!valid) {
-                    event.preventDefault(); // Prevent form submission if validation fails
-                }
+                // Make AJAX request
+                fetch("{% url 'Login' %}", {
+                    method: "POST",
+                    body: new URLSearchParams({
+                        'username': usernameInput.value,
+                        'password': passwordInput.value,
+                        csrfmiddlewaretoken: "{{ csrf_token }}",
+                    }),
+                    headers: {
+                        'Content-Type': 'application/x-www-form-urlencoded',
+                    },
+                })
+                .then(response => response.json())
+                .then(data => {
+                    alert(data.message);
+                    if (data.url) {
+                        window.location.href = data.url;
+                    }
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                });
             });
         });
     </script>

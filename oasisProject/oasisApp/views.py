@@ -3,6 +3,7 @@ from django.http import HttpResponse
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate,login,logout
 from django.contrib.auth.decorators import login_required
+from django.http import JsonResponse
 
 
 @login_required(login_url = 'Login')
@@ -14,16 +15,15 @@ def Login(request):
     if request.method == 'POST':
         username = request.POST.get('username')
         passw = request.POST.get('password')
-        print(username,passw)
+        print(username, passw)
         user = authenticate(request, username=username, password=passw)
-        if user is not None :
-            login(request,user)
-            
-            return redirect('Home')
+        if user is not None:
+            login(request, user)
+            return JsonResponse({'message': 'success', 'url': 'Home'})
         else:
-            return HttpResponse("Invalid Credentials")
+            return JsonResponse({'message': 'Invalid Credentials'})
 
-    return render(request,"login.html")
+    return render(request, "login.html")
 
 
 def Register(request):
