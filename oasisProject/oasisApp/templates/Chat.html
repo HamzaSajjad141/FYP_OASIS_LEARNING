@@ -286,7 +286,11 @@
 
             // AJAX request to get response from the server
             $.get('/getResponse', { userMessage: userText, language: language, accent: accent }).done(function (data) {
-                var returnedMessage = "<code><div class='message botText'>Chatbot: <span>" + data + "</span></div></code>";
+                
+                var returnedMessage = "<code><div class='message botText'>Chatbot: <span><video controls><source src='" + data + "' type='video/mp4'></video></span></div></code>";
+                
+                //var returnedMessage = "<code><div class='message botText'>Chatbot: <span><a href='" + data + "' target='_blank'>Click here to watch the video</a></span></div></code>";
+                //var returnedMessage = "<code><div class='message botText'>Chatbot: <span>" + data + "</span></div></code>";
                 $('#chat-content').append(returnedMessage);
                 $('#chat-content').scrollTop($('#chat-content')[0].scrollHeight); // Auto-scroll to the bottom
             });

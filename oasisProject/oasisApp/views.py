@@ -97,25 +97,104 @@ def managecomplaints(request):
 
 import openai
 
-openai_api_key = "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"
+openai_api_key = "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"
 openai.api_key = openai_api_key
 
+from transformers import AutoProcessor, SeamlessM4Tv2Model
+processor = AutoProcessor.from_pretrained("facebook/seamless-m4t-v2-large")
+model = SeamlessM4Tv2Model.from_pretrained("facebook/seamless-m4t-v2-large")
+
+import requests
+import time
+
 def ask_openai(userMessage):
-    completion = openai.chat.completions.create(
-    model="gpt-3.5-turbo",
-    messages=[
-        {"role": "system", "content": "You are a helpful assistant."},
-        {"role": "user", "content": userMessage}
-    ])
+    # completion = openai.chat.completions.create(
+    # model="gpt-3.5-turbo",
+    # messages=[
+    #     {"role": "system", "content": "You are a helpful assistant."},
+    #     {"role": "user", "content": userMessage}
+    # ])
     
-    answer = completion.choices[0].message.content
+    # answer = completion.choices[0].message.content
     
+    answer = '''Function overloading is a programming concept in which multiple functions can have the same name but different parameters or argument lists. This allows you to define multiple functions with the same name within the same scope, but with each function having different parameters or different types of parameters.
+    When you call an overloaded function, the compiler determines which version of the function to execute based on the number and types of arguments provided in the function call. This allows you to create more flexible and versatile code by providing multiple ways to call a function with different sets of parameters. 
+    Function overloading is commonly used in object-oriented programming languages like C++, Java, and C#. It helps improve code readability, reusability, and maintainability by allowing developers to define functions that perform similar tasks but operate on different types of data or accept different numbers of arguments.'''
     return answer
 
+def translation(text_to_translate):
+
+    text_inputs = processor(text_to_translate, src_lang="eng", return_tensors="pt")
+
+    # from text
+    output_tokens = model.generate(**text_inputs, tgt_lang="fra", generate_speech=False)
+    translated_text_from_text = processor.decode(output_tokens[0].tolist()[0], skip_special_tokens=True)
+
+    print(translated_text_from_text)
+    return translated_text_from_text
+    
+def video_gen(text_to_video):
+
+    url = "https://api.d-id.com/talks"
+
+    payload = {
+        "script": {
+            "type": "text",
+            "subtitles": "false",
+            "provider": {
+                "type": "microsoft",
+                "voice_id": "en-US-GuyNeural"
+            },
+            "input": text_to_video
+        },
+        "config": {
+            "fluent": "false",
+            "pad_audio": "0.0"
+        },
+        "source_url": "https://assets.mycast.io/actor_images/actor-johnny-sins-75125_large.jpg?1586055334"
+    }
+    headers = {
+        "Authorization": "Basic emFlZW0ubXVoYW1tYWQueWFzZWVuMjBAZ21haWwuY29t:s-WqghqPlX0MpIIAgXqzo",
+        "accept": "application/json",
+        "content-type": "application/json"
+    }
+
+    response = requests.post(url, json=payload, headers=headers)
+    print('First Response: ',response.text)
+    
+    response_json = response.json()
+    talk_id = response_json.get("id")
+    return talk_id
+    
+def get_video(id):
+    url = "https://api.d-id.com/talks/" + id
+    headers = {"Authorization": "Basic emFlZW0ubXVoYW1tYWQueWFzZWVuMjBAZ21haWwuY29t:s-WqghqPlX0MpIIAgXqzo",
+               "accept": "application/json"}
+    response = requests.get(url, headers=headers)
+    print('Second Response: ',response.text)
+    
+    # Parse the JSON response
+    response_json = response.json()
+
+    # Extract the result_url from the response JSON
+    result_url = response_json.get("result_url")
+    return result_url
+    
 def getResponse(request):
     userMessage = request.GET.get('userMessage')
     
     completion = ask_openai(userMessage)
     print(completion)
     
-    return HttpResponse(completion)
+    translated_text = translation(completion)
+    print(translated_text)    
+    
+    id_get = video_gen(translated_text)
+    print(id_get)
+    
+    time.sleep(60)
+    
+    get_vid = get_video(id_get)
+    print(get_vid)
+
+    return HttpResponse(get_vid)
