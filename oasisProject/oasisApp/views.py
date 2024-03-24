@@ -122,18 +122,22 @@ def ask_openai(userMessage):
     Function overloading is commonly used in object-oriented programming languages like C++, Java, and C#. It helps improve code readability, reusability, and maintainability by allowing developers to define functions that perform similar tasks but operate on different types of data or accept different numbers of arguments.'''
     return answer
 
-def translation(text_to_translate):
+def translation(text_to_translate, lan):
 
-    text_inputs = processor(text_to_translate, src_lang="eng", return_tensors="pt")
+    text_inputs = processor(text_to_translate, src_lang = "eng", return_tensors="pt")
 
     # from text
-    output_tokens = model.generate(**text_inputs, tgt_lang="fra", generate_speech=False)
+    output_tokens = model.generate(**text_inputs, tgt_lang = lan, generate_speech=False)
     translated_text_from_text = processor.decode(output_tokens[0].tolist()[0], skip_special_tokens=True)
 
     print(translated_text_from_text)
     return translated_text_from_text
     
-def video_gen(text_to_video):
+def video_gen(text_to_video, user_voice): 
+    if user_voice == "Male":
+        voice = "en-US-GuyNeural"
+    else:
+        voice = "en-US-JennyNeural"
 
     url = "https://api.d-id.com/talks"
 
@@ -143,7 +147,7 @@ def video_gen(text_to_video):
             "subtitles": "false",
             "provider": {
                 "type": "microsoft",
-                "voice_id": "en-US-GuyNeural"
+                "voice_id": voice
             },
             "input": text_to_video
         },
@@ -182,19 +186,24 @@ def get_video(id):
     
 def getResponse(request):
     userMessage = request.GET.get('userMessage')
+    user_language = request.GET.get('language')
+    user_accent = request.GET.get('accent')
+    
+    print("Language: ",user_language)
+    print("Accent: ", user_accent)
     
     completion = ask_openai(userMessage)
     print(completion)
     
-    translated_text = translation(completion)
+    translated_text = translation(completion, user_language)
     print(translated_text)    
     
-    id_get = video_gen(translated_text)
-    print(id_get)
+    # id_get = video_gen(translated_text, user_accent)
+    # print(id_get)
     
-    time.sleep(60)
+    # time.sleep(60)
     
-    get_vid = get_video(id_get)
-    print(get_vid)
+    # get_vid = get_video(id_get)
+    # print(get_vid)
 
     return HttpResponse(get_vid)
