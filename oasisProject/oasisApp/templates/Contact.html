@@ -220,6 +220,7 @@
         <h1 class="contact-us-title">Contact Us</h1>
         <div class="contact-us-form">
             <form action="#" method="post">
+                {% csrf_token %}
                 <div class="form-group">
                     <label for="name">Your Name</label>
                     <input type="text" id="name" name="name" placeholder="Enter your name" required>

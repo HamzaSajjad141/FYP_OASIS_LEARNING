@@ -33,12 +33,12 @@ def Login(request):
         if user is not None:
             login(request, user)
             if user.is_superuser:
-                return redirect('Dashboard')  # Redirect to admin dashboard
+                return JsonResponse({'message': 'success', 'url': 'Dashboard'})  # Redirect to admin dashboard
             else:
-                return redirect('Home')  # Redirect to home page for regular users
+                return JsonResponse({'message': 'success', 'url': 'Home'})  # Redirect to home page for regular users
             #return JsonResponse({'message': 'success', 'url': 'Home'})
         else:
-            return JsonResponse({'message': 'Invalid Credentials','url': 'Login'})
+            return JsonResponse({'message': 'Invalid Credentials','url': ''})
 
     return render(request, "login.html")
 
