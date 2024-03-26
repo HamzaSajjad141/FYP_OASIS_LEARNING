@@ -4,7 +4,20 @@ from django.contrib.auth.models import User
 from django.contrib.auth import authenticate,login,logout
 from django.contrib.auth.decorators import login_required
 from django.http import JsonResponse
+from django.contrib.auth.decorators import user_passes_test
+from django.contrib import messages
+from .models import Complaint , History
+from django.shortcuts import render, get_object_or_404
+from django.http import HttpResponse, HttpResponseRedirect
 
+
+# Decorator to check if user is superuser
+def superuser_required(view_func):
+    decorated_view_func = user_passes_test(
+        lambda user: user.is_superuser,
+        login_url='Login'
+    )(view_func)
+    return decorated_view_func
 
 @login_required(login_url = 'Login')
 def Home(request):
@@ -19,9 +32,13 @@ def Login(request):
         user = authenticate(request, username=username, password=passw)
         if user is not None:
             login(request, user)
-            return JsonResponse({'message': 'success', 'url': 'Home'})
+            if user.is_superuser:
+                return redirect('Dashboard')  # Redirect to admin dashboard
+            else:
+                return redirect('Home')  # Redirect to home page for regular users
+            #return JsonResponse({'message': 'success', 'url': 'Home'})
         else:
-            return JsonResponse({'message': 'Invalid Credentials'})
+            return JsonResponse({'message': 'Invalid Credentials','url': 'Login'})
 
     return render(request, "login.html")
 
@@ -48,20 +65,47 @@ def Register(request):
     
     return render(request,"Register.html")
 
+@login_required(login_url='Login')
 def Logout(request):
     logout(request)
     return redirect('Login')
 
+@login_required(login_url='Login')
 def AboutUs(request):
     return render(request,"About.html")
 
 
+@login_required(login_url='Login')
 def ContactUs(request):
-    return render(request,"Contact.html")
+    
+    
+    if request.method == 'POST':
+        # Get the form data
+        name = request.POST.get('name')
+        email = request.POST.get('email')
+        message = request.POST.get('message')
+        
+        # Save the complaint in the database
+        complaint = Complaint.objects.create(
+            user=request.user,
+            description=message
+        )
+        # You might want to add additional fields like name and email to the Complaint model
+        # depending on your requirements
+        
+        # Redirect the user to a thank you page or any other appropriate page
+        return redirect('Home')
 
+    # Filter complaints based on the currently logged-in user
+    user_complaints_with_responses = Complaint.objects.filter(user=request.user, respond__isnull=False)
 
+    return render(request, "Contact.html", {'user_complaints_with_responses': user_complaints_with_responses})
+
+@login_required(login_url='Login')
 def history(request):
-    return render(request,"Viewhistory.html")
+    # Retrieve all history objects from the database
+    history_entries = History.objects.filter(user=request.user)
+    return render(request, "Viewhistory.html", {'history_entries': history_entries})
 
 
 def Chat(request):
@@ -70,25 +114,169 @@ def Chat(request):
 def video(request):
     return render(request,"video.html")
 
+
+@login_required(login_url='Login')
+@superuser_required
 def Dashboard(request):
-    return render(request,"Dashboard.html")
+    
+
+    
+    regular_users_count = User.objects.filter(is_superuser=False).count()
+    
+    # Fetch superusers
+    admin = User.objects.filter(is_superuser=True)
+    
+    context = {
+        'regular_users_count': regular_users_count,
+        'superusers': admin
+    }
+    return render(request, "Dashboard.html", context)
 
 
+@login_required(login_url='Login')
+@superuser_required
 def Adduser(request):
+    if request.method == 'POST':
+        usrname = request.POST.get('username')
+        email = request.POST.get('email')
+        pass1 = request.POST.get('password')
+        pass2 = request.POST.get('confirm_password')
+        print(usrname,email,pass1,pass2)
+        
+        if User.objects.filter(username=usrname).exists():
+            return HttpResponse("Username is already taken. Please choose a different one.")
+        else:
+            Reg_User = User.objects.create_user(usrname,email,pass1)
+            Reg_User.save()
+            messages.success(request, 'User added successfully!')
+            return render(request, "Adduser.html")
+
     return render(request,"Adduser.html")
 
+@login_required(login_url='Login')
+@superuser_required
 def UpdateUser(request):
-    return render(request,"Updateuser.html")
+    if request.method == 'POST':
+        # Get data from the form
+        username = request.POST.get('username')
+        new_email = request.POST.get('email')
 
+        try:
+            # Get the user object by username
+            user = User.objects.get(username=username)
+            # Update the user's email
+            user.email = new_email
+            user.save()
+            # Redirect to Dashboard or any other appropriate page
+            return redirect('Dashboard')
+        except User.DoesNotExist:
+            # Handle if the user does not exist
+            # You can render a message or redirect to the same page with an error message
+            return render(request, 'updateuser.html', {'error_message': 'User does not exist.'})
+
+    # If request method is not POST, render the updateuser.html template
+    return render(request, "updateuser.html")
+
+@login_required(login_url='Login')
+@superuser_required
 def DeleteUser(request):
-    return render(request,"deleteuser.html")
+    if request.method == 'POST':
+        username = request.POST.get('username')
+        confirmation = request.POST.get('confirmation')
 
+        # Check if the confirmation matches the required string
+        if confirmation != 'DELETE':
+            messages.error(request, 'Confirmation string incorrect. Please type "DELETE" to confirm.')
+            return redirect('DeleteUser')
+
+        try:
+            # Get the user object
+            user = User.objects.get(username=username)
+            # Delete the user
+            user.delete()
+            messages.success(request, f'User {username} deleted successfully!')
+            return redirect('Dashboard')
+        except User.DoesNotExist:
+            messages.error(request, f'User with username {username} does not exist.')
+            return redirect('DeleteUser')
+
+    return render(request, "deleteuser.html")
+
+@login_required(login_url='Login')
+@superuser_required
 def Users(request):
-    return render(request,"users.html")
+    # Fetch regular users from the database, excluding superusers
+    regular_users = User.objects.filter(is_superuser=False)
+    
+    context = {
+        'users': regular_users
+    }
+    return render(request, "users.html", context)
 
 
+
+@login_required(login_url='Login')
+@superuser_required
 def managecomplaints(request):
-    return render(request,"managecomplaints.html")
+    complaints = Complaint.objects.all()  # Fetch all complaints from the database
+
+    context = {
+        'complaints': complaints
+    }
+    return render(request, "managecomplaints.html", context)
+
+
+
+@login_required(login_url='Login')
+@superuser_required
+def respond_complaint_view(request, complaint_id):
+    # Retrieve the complaint object corresponding to the complaint_id
+    complaint = get_object_or_404(Complaint, id=complaint_id)
+    
+    if request.method == 'POST':
+        # Process the form data submitted for responding to the complaint
+        response_text = request.POST.get('response', '')  # Assuming your form field name is 'response'
+        
+        # Save the response to the complaint
+        complaint.respond = response_text
+        complaint.status = 'Responded'
+        complaint.save()
+        
+        # Redirect the user to a success page or any other relevant page
+        return HttpResponseRedirect('/Dashboard/')  # Redirect to Dashboard after responding
+        
+    # If the request method is GET, render the respondcomplaint.html template
+    return render(request, 'respondcomplaint.html', {'complaint': complaint})
+
+
+
+
+
+# import openai
+
+# openai_api_key = "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"
+# openai.api_key = openai_api_key
+
+# def ask_openai(userMessage):
+#     completion = openai.chat.completions.create(
+#     model="gpt-3.5-turbo",
+#     messages=[
+#         {"role": "system", "content": "You are a helpful assistant."},
+#         {"role": "user", "content": userMessage}
+#     ])
+    
+#     answer = completion.choices[0].message.content
+    
+#     return answer
+
+# def getResponse(request):
+#     userMessage = request.GET.get('userMessage')
+    
+#     completion = ask_openai(userMessage)
+#     print(completion)
+    
+#     return HttpResponse(completion)
+
 
 
 
@@ -97,7 +285,7 @@ def managecomplaints(request):
 
 import openai
 
-openai_api_key = "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"
+openai_api_key = "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"
 openai.api_key = openai_api_key
 
 from transformers import AutoProcessor, SeamlessM4Tv2Model
@@ -116,15 +304,18 @@ def ask_openai(userMessage):
     # ])
     
     # answer = completion.choices[0].message.content
+    answer = '''Inheritance in object-oriented programming allows a new class (subclass) to be created based on an existing class (superclass), inheriting its 
+    attributes and behaviors. This promotes code reuse, reducing redundancy and improving maintainability. Subclasses can extend or modify the functionality of the 
+    superclass, creating hierarchical relationships. Inheritance follows the "is-a" relationship, where a subclass is a specialized version of its superclass. 
+    It enables developers to model real-world scenarios accurately and efficiently. Inheritance facilitates polymorphism, where objects of different classes can 
+    be treated uniformly through shared interfaces. It enhances software design by promoting modularity and extensibility. Inheritance is a key feature of OOP languages 
+    like Python, Java, and C++.'''
     
-    answer = '''Function overloading is a programming concept in which multiple functions can have the same name but different parameters or argument lists. This allows you to define multiple functions with the same name within the same scope, but with each function having different parameters or different types of parameters.
-    When you call an overloaded function, the compiler determines which version of the function to execute based on the number and types of arguments provided in the function call. This allows you to create more flexible and versatile code by providing multiple ways to call a function with different sets of parameters. 
-    Function overloading is commonly used in object-oriented programming languages like C++, Java, and C#. It helps improve code readability, reusability, and maintainability by allowing developers to define functions that perform similar tasks but operate on different types of data or accept different numbers of arguments.'''
     return answer
 
 def translation(text_to_translate, lan):
 
-    text_inputs = processor(text_to_translate, src_lang = "eng", return_tensors="pt")
+    text_inputs = processor(text_to_translate, src_lang="eng", return_tensors="pt")
 
     # from text
     output_tokens = model.generate(**text_inputs, tgt_lang = lan, generate_speech=False)
@@ -133,12 +324,12 @@ def translation(text_to_translate, lan):
     print(translated_text_from_text)
     return translated_text_from_text
     
-def video_gen(text_to_video, user_voice): 
+def video_gen(text_to_video, user_voice):
     if user_voice == "Male":
         voice = "en-US-GuyNeural"
     else:
         voice = "en-US-JennyNeural"
-
+        
     url = "https://api.d-id.com/talks"
 
     payload = {
@@ -158,7 +349,7 @@ def video_gen(text_to_video, user_voice):
         "source_url": "https://assets.mycast.io/actor_images/actor-johnny-sins-75125_large.jpg?1586055334"
     }
     headers = {
-        "Authorization": "Basic emFlZW0ubXVoYW1tYWQueWFzZWVuMjBAZ21haWwuY29t:s-WqghqPlX0MpIIAgXqzo",
+        "Authorization": "Basic aGFtemFzYWpqYWQxMjc3QGdtYWlsLmNvbQ:2K9BvmOk1a54CmryHIcgI",
         "accept": "application/json",
         "content-type": "application/json"
     }
@@ -172,7 +363,7 @@ def video_gen(text_to_video, user_voice):
     
 def get_video(id):
     url = "https://api.d-id.com/talks/" + id
-    headers = {"Authorization": "Basic emFlZW0ubXVoYW1tYWQueWFzZWVuMjBAZ21haWwuY29t:s-WqghqPlX0MpIIAgXqzo",
+    headers = {"Authorization": "Basic aGFtemFzYWpqYWQxMjc3QGdtYWlsLmNvbQ:2K9BvmOk1a54CmryHIcgI",
                "accept": "application/json"}
     response = requests.get(url, headers=headers)
     print('Second Response: ',response.text)
@@ -198,12 +389,19 @@ def getResponse(request):
     translated_text = translation(completion, user_language)
     print(translated_text)    
     
-    # id_get = video_gen(translated_text, user_accent)
-    # print(id_get)
+    id_get = video_gen(translated_text, user_accent)
+    print(id_get)
     
-    # time.sleep(60)
+    time.sleep(30)
     
-    # get_vid = get_video(id_get)
-    # print(get_vid)
+    get_vid = get_video(id_get)
+    print(get_vid)
+    
+    history_entry = History.objects.create(
+        user=request.user,
+        query_text=userMessage,
+        translated_text=translated_text,
+        video_url=get_vid
+    )
 
     return HttpResponse(get_vid)
