@@ -14,9 +14,9 @@
             margin: 0;
             padding: 0;
             background-color: #E4EEF8;
-            color: #333; 
+            color: #333;
         }
-    
+
         .navbar {
             background-color: #293241;
             font-family: 'Poppins', sans-serif;
@@ -26,30 +26,30 @@
             justify-content: space-between;
             box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
         }
-    
+
         .navbar-logo {
             transform: scale(6.5);
             display: flex;
             align-items: center;
         }
-    
+
         .navbar-logo img {
             width: 25px;
             height: auto;
             margin-left: 10px;
         }
-    
+
         .navbar-links {
             display: flex;
             list-style-type: none;
             padding: 0;
             margin: 0;
         }
-    
+
         .nav-item {
             margin-right: 15px;
         }
-    
+
         .nav-link {
             color: white;
             text-decoration: none;
@@ -57,18 +57,18 @@
             border-radius: 5px;
             transition: background-color 0.3s ease-in-out;
         }
-    
+
         .nav-link:hover {
             background-color: #0d47a1;
         }
-    
+
         .hero {
             position: relative;
             height: 600px;
             overflow: hidden;
             border-bottom: 8px solid #03A9F4;
         }
-    
+
         .hero img {
             right: 100%;
             object-fit: cover;
@@ -76,7 +76,7 @@
             width: 100%;
             height: 100%;
         }
-    
+
         .hero-content {
             position: absolute;
             top: 50%;
@@ -87,18 +87,18 @@
             max-width: 600px;
             color: #fff;
         }
-    
+
         .hero-title {
             font-size: 3.5em;
             margin: 0;
-            font-family: 'Poppins',sans-serif; 
+            font-family: 'Poppins', sans-serif;
             color: white;
 
             margin-top: 30px;
             margin-bottom: 20px;
             text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
         }
-    
+
         .hero-description {
             font-size: 1.5em;
             margin-bottom: 40px;
@@ -106,7 +106,7 @@
             color: white;
             line-height: 1.6;
         }
-    
+
         .btn {
             background-color: #f99820;
             color: white;
@@ -121,16 +121,16 @@
             text-decoration: none;
             text-shadow: 0px 10px 20px rgba(0, 0, 0, 0.25);
         }
-    
+
         .btn:hover {
             background-color: #0277bd;
         }
-    
+
         .features {
             padding: 50px 20px;
             background-color: #E4EEF8;
         }
-    
+
         .features-title {
             font-size: 2.5em;
             margin-bottom: 40px;
@@ -138,15 +138,15 @@
             text-align: center;
             font-family: sans-serif;
             color: #03A9F4;
-            
+
         }
-    
+
         .features-container {
             display: flex;
             flex-wrap: wrap;
             justify-content: space-between;
         }
-    
+
         .feature-card {
             width: 30%;
             margin-bottom: 40px;
@@ -155,17 +155,17 @@
             overflow: hidden;
             transition: transform 0.3s ease-in-out;
         }
-    
+
         .feature-card:hover {
             transform: scale(1.05);
         }
-    
+
         .feature-card img {
             width: 100%;
             height: 200px;
             border-bottom: 1px solid #ddd;
         }
-    
+
         .feature-title {
             font-size: 1.5em;
             margin: 20px 0;
@@ -173,7 +173,7 @@
             font-family: 'Roboto', sans-serif;
             text-align: center;
         }
-    
+
         .feature-description {
             font-size: 1em;
             line-height: 1.5;
@@ -181,7 +181,7 @@
             padding: 0 20px 20px;
             font-family: 'Roboto', sans-serif;
         }
-            
+
         .footer {
             background-color: #293241;
             color: white;
@@ -189,9 +189,91 @@
             padding: 20px;
             text-align: center;
         }
-    
+
         .footer-copyright {
             font-size: 1em;
+        }
+
+        /* New styles for Testimonials Section */
+        .testimonials {
+            padding: 50px 20px;
+            background-color: #fff;
+            text-align: center;
+        }
+
+        .testimonials-title {
+            font-size: 2.5em;
+            margin-bottom: 40px;
+            color: #333;
+            font-family: sans-serif;
+        }
+
+        .testimonials-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+
+        .testimonial {
+            max-width: 400px;
+            margin: 20px;
+            padding: 20px;
+            border: 1px solid #ccc;
+            border-radius: 10px;
+        }
+
+        .testimonial-text {
+            font-size: 1.2em;
+            margin-bottom: 10px;
+        }
+
+        .testimonial-author {
+            font-style: italic;
+        }
+
+        /* New styles for Customer Support Section */
+        .customer-support {
+            padding: 50px 20px;
+            background-color: #f9f9f9;
+            text-align: center;
+        }
+
+        .customer-support-title {
+            font-size: 2.5em;
+            margin-bottom: 40px;
+            color: #333;
+            font-family: sans-serif;
+        }
+
+        .customer-support-description {
+            font-size: 1.1em;
+            margin-bottom:             30px;
+        }
+
+        .customer-support-options {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+
+        .customer-support-option {
+            width: 300px;
+            margin: 20px;
+            padding: 20px;
+            border: 1px solid #ccc;
+            border-radius: 10px;
+        }
+
+        .option-title {
+            font-size: 1.5em;
+            margin-bottom: 10px;
+        }
+
+        .option-details {
+            font-size: 1.1em;
+            margin-bottom: 10px;
         }
     </style>
 </head>
@@ -213,7 +295,7 @@
     </nav>
 
     <div class="hero">
-        <img src="{% static 'images/Home.jpg' %}" alt="Hero Background Image">
+        <img src="{% static 'images/hero.jpg' %}" alt="Hero Background Image">
         <div class="hero-content">
             <h1 class="hero-title">Unleash the Power of Text-to-Video</h1>
             <p class="hero-description">Experience the seamless transformation of your text and images into engaging videos with our AI-powered Text-to-Video Generator.</p>
@@ -242,9 +324,45 @@
         </div>
     </section>
 
+    <section class="testimonials">
+        <h2 class="testimonials-title">What Our Customers Say</h2>
+        <div class="testimonials-container">
+            <div class="testimonial">
+                <p class="testimonial-text">"I was amazed by how easy it was to create professional-looking videos with Oasis Learning. Highly recommended!"</p>
+                <p class="testimonial-author">- John Doe, CEO</p>
+            </div>
+            <div class="testimonial">
+                <p class="testimonial-text">"Oasis Learning has truly revolutionized our content creation process. The output quality is outstanding!"</p>
+                <p class="testimonial-author">- Jane Smith, Marketing Manager</p>
+            </div>
+            <!-- Add more testimonials as needed -->
+        </div>
+    </section>
+
+    <section class="customer-support">
+        <h2 class="customer-support-title">Need Help?</h2>
+        <p class="customer-support-description">Our customer support team is here to assist you. Feel free to reach out to us via live chat, email, or phone.</p>
+        <div class="customer-support-options">
+            <div class="customer-support-option">
+                <h3 class="option-title">Live Chat</h3>
+                <p class="option-details">Chat with our support team in real-time for immediate assistance.</p>
+                <!-- Add live chat widget or link here -->
+            </div>
+            <div class="customer-support-option">
+                <h3 class="option-title">Email</h3>
+                <p class="option-details">Send us an email at support@oasislearning.com and we'll get back to you as soon as possible.</p>
+            </div>
+            <div class="customer-support-option">
+                <h3 class="option-title">Phone</h3>
+                <p class="option-details">Call our support hotline at 1-800-123-4567 to speak with a representative.</p>
+            </div>
+        </div>
+    </section>
+
     <footer class="footer">
         <p class="footer-copyright">&copy; Oasis Learning 2023</p>
     </footer>
 </body>
 
 </html>
+
