@@ -150,6 +150,53 @@
         .footer-copyright {
             font-size: 1em;
         }
+
+        /* User Complaints Section Styles */
+        .user-complaints-with-responses {
+            margin-top: 50px;
+            text-align: center;
+        }
+
+        .complaint {
+            background-color: #fff;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+            margin-bottom: 20px;
+        }
+
+        .complaint p {
+            margin: 10px 0;
+        }
+
+        .complaint strong {
+            font-weight: bold;
+        }
+
+        /* Additional Styles */
+        .user-complaints-with-responses h1 {
+            font-size: 2.5em;
+            margin-bottom: 30px;
+            color: #03A9F4;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+        }
+
+        /* Responsive Design */
+        @media only screen and (max-width: 768px) {
+            .contact-us-title {
+                font-size: 2.5em;
+            }
+            .contact-us-form {
+                padding: 20px;
+            }
+            .submit-btn {
+                font-size: 1em;
+            }
+            .user-complaints-with-responses h1 {
+                font-size: 2em;
+            }
+        }
+
     </style>
 </head>
 
@@ -188,6 +235,17 @@
                 <button type="submit" class="submit-btn">Submit</button>
             </form>
         </div>
+    </div>
+
+    <div class="user-complaints-with-responses">
+        <h1 class="contact-us-title">Admin Response</h1>
+        {% for complaint in user_complaints_with_responses %}
+        <div class="complaint">
+            <p><strong>User:</strong> {{ complaint.user.username }}</p>
+            <p><strong>Complaint:</strong> {{ complaint.description }}</p>
+            <p><strong>Admin Response:</strong> {{ complaint.respond }}</p>
+        </div>
+        {% endfor %}
     </div>
 
     <footer class="footer">

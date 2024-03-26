@@ -202,37 +202,22 @@
             <h1 class="page-title">Dashboard Overview</h1>
             <div class="info-card">
                 <h2>Total Users</h2>
-                <p>There are 10 registered users on the platform.</p>
+                <p>There are {{ regular_users_count }} registered users on the platform.</p>
             </div>
             <div class="info-card">
-                <h2>Monthly Reports</h2>
-                <p>Check the latest reports for this month's activities.</p>
+                <h2>Admin</h2>
+                <ul>
+                    {% for user in superusers %}
+                        <li>{{ user.username }}</li>
+                    {% endfor %}
+                </ul>
             </div>
             <div class="chart-container">
                 <canvas id="lineChart"></canvas>
             </div>
-            <div class="recent-activities">
-                <h2>Recent Activities</h2>
-                <div class="activity-item">
-                    <div class="activity-icon">1</div>
-                    <div class="activity-description">Added new course content.</div>
-                </div>
-                <div class="activity-item">
-                    <div class="activity-icon">2</div>
-                    <div class="activity-description">Updated user profiles.</div>
-                </div>
-                <div class="activity-item">
-                    <div class="activity-icon">3</div>
-                    <div class="activity-description">Generated monthly reports.</div>
-                </div>
-            </div>
-            <div class="notifications">
-                <h2>Notifications</h2>
-                <div class="notification-item">New user registered: John Doe</div>
-                <div class="notification-item">Monthly report ready for download.</div>
-            </div>
         </div>
     </div>
+
 
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script>

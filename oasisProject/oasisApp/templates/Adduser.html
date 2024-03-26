@@ -166,6 +166,7 @@
             <div class="add-user-container">
                 <h1 class="page-title">Add New User</h1>
                 <form action="#" method="post">
+                    {% csrf_token %}
                     <div class="form-group">
                         <label for="username">Username:</label>
                         <input type="text" id="username" name="username" required>

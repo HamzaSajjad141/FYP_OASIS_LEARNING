@@ -137,56 +137,13 @@
                     </tr>
                 </thead>
                 <tbody>
+                    {% for user in users %}
                     <tr>
-                        <td>1</td>
-                        <td>John Doe</td>
-                        <td>john.doe@example.com</td>
+                        <td>{{ user.id }}</td>
+                        <td>{{ user.username }}</td>
+                        <td>{{ user.email }}</td>
                     </tr>
-                    <tr>
-                        <td>2</td>
-                        <td>Jane Smith</td>
-                        <td>jane.smith@example.com</td>
-                    </tr>
-                    <tr>
-                        <td>3</td>
-                        <td>Michael Johnson</td>
-                        <td>michael.johnson@example.com</td>
-                    </tr>
-                    <tr>
-                        <td>4</td>
-                        <td>Alice Brown</td>
-                        <td>alice.brown@example.com</td>
-                    </tr>
-                    <tr>
-                        <td>5</td>
-                        <td>David Wilson</td>
-                        <td>david.wilson@example.com</td>
-                    </tr>
-                    <tr>
-                        <td>6</td>
-                        <td>Emma White</td>
-                        <td>emma.white@example.com</td>
-                    </tr>
-                    <tr>
-                        <td>7</td>
-                        <td>Chris Miller</td>
-                        <td>chris.miller@example.com</td>
-                    </tr>
-                    <tr>
-                        <td>8</td>
-                        <td>Sophia Lee</td>
-                        <td>sophia.lee@example.com</td>
-                    </tr>
-                    <tr>
-                        <td>9</td>
-                        <td>William Davis</td>
-                        <td>william.davis@example.com</td>
-                    </tr>
-                    <tr>
-                        <td>10</td>
-                        <td>Ella Anderson</td>
-                        <td>ella.anderson@example.com</td>
-                    </tr>
+                    {% endfor %}
                 </tbody>
             </table>
         </div>

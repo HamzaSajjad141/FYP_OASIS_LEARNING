@@ -147,30 +147,17 @@
 
     <div class="view-history-content">
         <h1 class="view-history-title">View History</h1>
-
+    
+        {% for entry in history_entries %}
         <div class="history-item">
-            <img src="https://source.unsplash.com/600x400/?history1" alt="Video Thumbnail">
-            <div class="history-item-details">
-                <h2 class="history-item-title">Video Title 1</h2>
-                <p class="history-item-date">Watched on January 1, 2023</p>
-            </div>
+            <video controls>
+                <source src="{{ entry.video_url }}" type="video/mp4">
+                Your browser does not support the video tag.
+              </video>
+            <p>Video 1</p>
+            <p class="history-item-date">Watched on {{ entry.date }}</p>
         </div>
-
-        <div class="history-item">
-            <img src="https://source.unsplash.com/600x400/?history2" alt="Video Thumbnail">
-            <div class="history-item-details">
-                <h2 class="history-item-title">Video Title 2</h2>
-                <p class="history-item-date">Watched on January 2, 2023</p>
-            </div>
-        </div>
-
-        <div class="history-item">
-            <img src="https://source.unsplash.com/600x400/?history3" alt="Video Thumbnail">
-            <div class="history-item-details">
-                <h2 class="history-item-title">Video Title 3</h2>
-                <p class="history-item-date">Watched on January 3, 2023</p>
-            </div>
-        </div>
+        {% endfor %}
     </div>
 
     <footer class="footer">
