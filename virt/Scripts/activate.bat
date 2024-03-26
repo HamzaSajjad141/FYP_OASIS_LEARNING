@@ -8,7 +8,7 @@ if defined _OLD_CODEPAGE (
     "%SystemRoot%\System32\chcp.com" 65001 > nul
 )
 
-set VIRTUAL_ENV=E:\FasTdevGIT\FYP_OASIS_LEARNING\virt
+set VIRTUAL_ENV=D:\GITHUB\FYP_OASIS_LEARNING\virt
 
 if not defined PROMPT set PROMPT=$P$G
 
