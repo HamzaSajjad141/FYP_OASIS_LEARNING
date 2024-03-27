@@ -16,6 +16,20 @@
             align-items: stretch;
         }
 
+        /* Add custom CSS for notification */
+        .notification {
+            display: none;
+            position: fixed;
+            top: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            background-color: #f44336;
+            color: white;
+            padding: 15px;
+            border-radius: 5px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
         .admin-container {
             display: flex;
             flex: 1;
@@ -166,10 +180,30 @@
         <div class="content">
             <div class="update-user-container">
                 <h1 class="page-title">Update User</h1>
+              <!-- Display error messages -->
+        {% if error_message %}
+        <div class="notification" id="error-notification">
+            {{ error_message }}
+        </div>
+        <script>
+            // JavaScript function to show notification
+            function showNotification() {
+                var notification = document.getElementById("error-notification");
+                notification.style.display = "block";
+                setTimeout(function() {
+                    notification.style.display = "none";
+                }, 3000); // Hide notification after 3 seconds
+            }
+
+            // Call the function to show notification
+            showNotification();
+        </script>
+        {% endif %}
                 <form action="{% url 'UpdateUser' %}" method="post">
                     {% csrf_token %}
                     <div class="form-group">
                         <label for="username">Existing Username:</label>
+                        
                         <input type="text" id="username" name="username" required>
                     </div>
                     <div class="form-group">

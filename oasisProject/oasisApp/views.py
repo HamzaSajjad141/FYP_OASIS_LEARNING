@@ -115,7 +115,7 @@ def video(request):
     return render(request,"video.html")
 
 
-@login_required(login_url='Login')
+
 @superuser_required
 def Dashboard(request):
     
@@ -133,7 +133,7 @@ def Dashboard(request):
     return render(request, "Dashboard.html", context)
 
 
-@login_required(login_url='Login')
+
 @superuser_required
 def Adduser(request):
     if request.method == 'POST':
@@ -144,16 +144,16 @@ def Adduser(request):
         print(usrname,email,pass1,pass2)
         
         if User.objects.filter(username=usrname).exists():
-            return HttpResponse("Username is already taken. Please choose a different one.")
+            return JsonResponse({'error': 'Username is already taken. Please choose a different one.'})
         else:
             Reg_User = User.objects.create_user(usrname,email,pass1)
             Reg_User.save()
             messages.success(request, 'User added successfully!')
-            return render(request, "Adduser.html")
+            return render(request, "Dashboard.html")
 
     return render(request,"Adduser.html")
 
-@login_required(login_url='Login')
+
 @superuser_required
 def UpdateUser(request):
     if request.method == 'POST':
@@ -177,7 +177,7 @@ def UpdateUser(request):
     # If request method is not POST, render the updateuser.html template
     return render(request, "updateuser.html")
 
-@login_required(login_url='Login')
+
 @superuser_required
 def DeleteUser(request):
     if request.method == 'POST':
@@ -202,7 +202,7 @@ def DeleteUser(request):
 
     return render(request, "deleteuser.html")
 
-@login_required(login_url='Login')
+
 @superuser_required
 def Users(request):
     # Fetch regular users from the database, excluding superusers
@@ -215,7 +215,7 @@ def Users(request):
 
 
 
-@login_required(login_url='Login')
+
 @superuser_required
 def managecomplaints(request):
     complaints = Complaint.objects.all()  # Fetch all complaints from the database
@@ -227,7 +227,7 @@ def managecomplaints(request):
 
 
 
-@login_required(login_url='Login')
+
 @superuser_required
 def respond_complaint_view(request, complaint_id):
     # Retrieve the complaint object corresponding to the complaint_id
