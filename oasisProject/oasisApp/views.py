@@ -285,7 +285,7 @@ def respond_complaint_view(request, complaint_id):
 
 import openai
 
-openai_api_key = "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"
+openai_api_key = "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"
 openai.api_key = openai_api_key
 
 from transformers import AutoProcessor, SeamlessM4Tv2Model
@@ -296,20 +296,15 @@ import requests
 import time
 
 def ask_openai(userMessage):
-    # completion = openai.chat.completions.create(
-    # model="gpt-3.5-turbo",
-    # messages=[
-    #     {"role": "system", "content": "You are a helpful assistant."},
-    #     {"role": "user", "content": userMessage}
-    # ])
+    userMessage = userMessage + " Also give me recommendation what to learn next."
+    completion = openai.chat.completions.create(
+    model="gpt-3.5-turbo",
+    messages=[
+        {"role": "system", "content": "You are a helpful assistant."},
+        {"role": "user", "content": userMessage}
+    ])
     
-    # answer = completion.choices[0].message.content
-    answer = '''Inheritance in object-oriented programming allows a new class (subclass) to be created based on an existing class (superclass), inheriting its 
-    attributes and behaviors. This promotes code reuse, reducing redundancy and improving maintainability. Subclasses can extend or modify the functionality of the 
-    superclass, creating hierarchical relationships. Inheritance follows the "is-a" relationship, where a subclass is a specialized version of its superclass. 
-    It enables developers to model real-world scenarios accurately and efficiently. Inheritance facilitates polymorphism, where objects of different classes can 
-    be treated uniformly through shared interfaces. It enhances software design by promoting modularity and extensibility. Inheritance is a key feature of OOP languages 
-    like Python, Java, and C++.'''
+    answer = completion.choices[0].message.content
     
     return answer
 
