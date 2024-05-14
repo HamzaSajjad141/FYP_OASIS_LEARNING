@@ -258,6 +258,7 @@ def respond_complaint_view(request, complaint_id):
 import os 
 from openai import AzureOpenAI
 from dotenv import load_dotenv
+load_dotenv()
 
 from transformers import AutoProcessor, SeamlessM4Tv2Model
 processor = AutoProcessor.from_pretrained("facebook/seamless-m4t-v2-large")
@@ -267,17 +268,41 @@ import requests
 import time
 
 def ask_openai(userMessage):
-    userMessage = userMessage + " Also give me recommendation what to learn next."
-    completion = openai.chat.completions.create(
-    model="gpt-3.5-turbo",
-    messages=[
-        {"role": "system", "content": "You are a helpful assistant."},
-        {"role": "user", "content": userMessage}
-    ])
+    userMessage = "Can you help me with the question " + userMessage + "? Also, could you suggest some related topics or areas for further exploration?"
     
-    answer = completion.choices[0].message.content
+    azure_openai_endpoint = os.getenv("AZURE_OPENAI_ENDPOINT")
+    azure_openai_key = os.getenv("AZURE_OPENAI_KEY")
+    azure_openai_development = os.getenv("AZURE_OPENAI_DEVELOPMENT") 
     
-    return answer
+    #azue openai
+    client = AzureOpenAI(
+        azure_endpoint = azure_openai_endpoint,
+        api_key= azure_openai_key,
+        api_version= "2024-02-15-preview"            
+    )
+    
+    system_message = "You are an AI assistant that helps people find information."
+    
+    messages_array = [{"role": "system", "content": system_message}]
+        
+    # Add code to send request...
+    # Send request to Azure OpenAI model
+    
+    #ask gpt to generate prompt
+    messages_array.append({"role": "user", "content": userMessage})
+    
+    response = client.chat.completions.create(
+        model= azure_openai_development,
+        temperature= 0.7,
+        max_tokens= 1200,
+        messages= messages_array
+    )
+    generated_answer = response.choices[0].message.content
+        
+    #Add generated text to messages array
+    messages_array.append({"role": "system", "content": generated_answer})
+    
+    return generated_answer
 
 def translation(text_to_translate, lan):
 
@@ -290,11 +315,20 @@ def translation(text_to_translate, lan):
     print(translated_text_from_text)
     return translated_text_from_text
     
-def video_gen(text_to_video, user_voice, image):
-    if user_voice == "Male":
-        voice = "en-US-GuyNeural"
-    else:
+def video_gen(text_to_video, language, user_voice, image):
+    if language == "eng" and user_voice == "Male":
+        voice = "en-US-AndrewMultilingualNeural"
+    elif language == "eng" and user_voice == "Female":
         voice = "en-US-JennyNeural"
+    elif language == "urd" and user_voice == "Male":
+        voice = "ur-PK-AsadNeural"
+    elif language == "urd" and user_voice == "Female":
+        voice = "ur-PK-UzmaNeural"
+    elif user_voice == "Male":
+        voice = "hi-IN-MadhurNeural"
+    elif user_voice == "Female":
+        voice = "hi-IN-AnanyaNeural"
+        
         
     url = "https://api.d-id.com/talks"
 
@@ -358,61 +392,6 @@ cloudinary.config(
     api_secret = "ht5pCWElYBkWVnb1J6HHB04lP0Q",
 )
 
-def ask_openai(userMessage):
-    
-    userMessage = f'Output me only a prompt to give to gpt so he can asnwer the question "{ userMessage }". Only prompt and do not add apostrophes at start or end of the prompt.'
-    
-    azure_openai_endpoint = os.getenv("AZURE_OPENAI_ENDPOINT")
-    azure_openai_key = os.getenv("AZURE_OPENAI_KEY")
-    azure_openai_development = os.getenv("AZURE_OPENAI_DEVELOPMENT") 
-    print("userMessage: ", userMessage, end="\n\n")
-    
-    #azue openai
-    client = AzureOpenAI(
-        azure_endpoint = azure_openai_endpoint,
-        api_key= azure_openai_key,
-        api_version= "2024-02-15-preview"            
-    )
-    
-    system_message = "You are an AI assistant that helps people find information."
-    
-    messages_array = [{"role": "system", "content": system_message}]
-        
-    # Add code to send request...
-    # Send request to Azure OpenAI model
-    
-    #ask gpt to generate prompt
-    messages_array.append({"role": "user", "content": userMessage})
-    
-    response = client.chat.completions.create(
-        model= azure_openai_development,
-        temperature= 0.7,
-        max_tokens= 1200,
-        messages= messages_array
-    )
-    generated_prompt = response.choices[0].message.content
-    generated_prompt = generated_prompt + ". Also suggest what topics or info to explore next related the my given question."
-    print("Generated Prompt: ", generated_prompt, end="\n\n")
-    
-    #ask gpt to give answer
-    messages_array.append({"role": "user", "content": generated_prompt})
-    
-    response = client.chat.completions.create(
-        model= azure_openai_development,
-        temperature= 0.7,
-        max_tokens= 1000,
-        messages= messages_array
-    )
-    generated_answer = response.choices[0].message.content
-    
-    #Add generated text to messages array
-    messages_array.append({"role": "system", "content": generated_answer})
-    
-    return generated_answer
-
-
-
-
 def upload_image(request):
     if request.method == 'POST':
         # Get the form data
@@ -437,7 +416,7 @@ def upload_image(request):
         translated_text = translation(completion, language)
         print(translated_text)
            
-        id_get = video_gen(user_message, accent, upload_result["secure_url"])
+        id_get = video_gen(translated_text,language, accent, upload_result["secure_url"])
         print(id_get)
         
         time.sleep(30)
@@ -451,4 +430,4 @@ def upload_image(request):
             translated_text=translated_text,
             video_url=get_vid
         )
-    return render(request, 'video.html', {'video_url': get_vid, 'translated_text': user_message})
+    return render(request, 'video.html', {'video_url': get_vid, 'translated_text': translated_text})
