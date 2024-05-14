@@ -45,7 +45,7 @@ def Login(request):
         else:
             return JsonResponse({'message': 'Invalid Credentials','url': ''})
 
-    return render(request, "login.html"
+    return render(request, "login.html")
 
 
 def Register(request):
