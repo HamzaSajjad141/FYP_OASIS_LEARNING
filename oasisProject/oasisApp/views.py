@@ -349,7 +349,7 @@ def video_gen(text_to_video, language, user_voice, image):
         "source_url": image
     }
     headers = {
-        "Authorization": "Basic ZjIwMDI5N0BjZmQubnUuZWR1LnBr:4OYlSoiA9xTIURL0xaqbC",
+        "Authorization": "Basic ZjIwMDMyOUBjZmQubnUuZWR1LnBr:AR9LVrGhgNLbT5ilCU04U",
         "accept": "application/json",
         "content-type": "application/json"
     }
@@ -363,7 +363,7 @@ def video_gen(text_to_video, language, user_voice, image):
     
 def get_video(id):
     url = "https://api.d-id.com/talks/" + id
-    headers = {"Authorization": "Basic ZjIwMDI5N0BjZmQubnUuZWR1LnBr:4OYlSoiA9xTIURL0xaqbC",
+    headers = {"Authorization": "Basic ZjIwMDMyOUBjZmQubnUuZWR1LnBr:AR9LVrGhgNLbT5ilCU04U",
                "accept": "application/json"}
     response = requests.get(url, headers=headers)
     print('Second Response: ',response.text)
