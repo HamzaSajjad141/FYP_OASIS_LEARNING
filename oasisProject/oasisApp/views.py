@@ -324,7 +324,7 @@ def translation(text_to_translate, lan):
     print(translated_text_from_text)
     return translated_text_from_text
     
-def video_gen(text_to_video, user_voice):
+def video_gen(text_to_video, user_voice, image):
     if user_voice == "Male":
         voice = "en-US-GuyNeural"
     else:
@@ -346,10 +346,10 @@ def video_gen(text_to_video, user_voice):
             "fluent": "false",
             "pad_audio": "0.0"
         },
-        "source_url": "https://assets.mycast.io/actor_images/actor-johnny-sins-75125_large.jpg?1586055334"
+        "source_url": image
     }
     headers = {
-        "Authorization": "Basic aGFtemFzYWpqYWQxMjc3QGdtYWlsLmNvbQ:2K9BvmOk1a54CmryHIcgI",
+        "Authorization": "Basic ZjIwMDI5N0BjZmQubnUuZWR1LnBr:4OYlSoiA9xTIURL0xaqbC",
         "accept": "application/json",
         "content-type": "application/json"
     }
@@ -363,7 +363,7 @@ def video_gen(text_to_video, user_voice):
     
 def get_video(id):
     url = "https://api.d-id.com/talks/" + id
-    headers = {"Authorization": "Basic aGFtemFzYWpqYWQxMjc3QGdtYWlsLmNvbQ:2K9BvmOk1a54CmryHIcgI",
+    headers = {"Authorization": "Basic ZjIwMDI5N0BjZmQubnUuZWR1LnBr:4OYlSoiA9xTIURL0xaqbC",
                "accept": "application/json"}
     response = requests.get(url, headers=headers)
     print('Second Response: ',response.text)
@@ -374,34 +374,61 @@ def get_video(id):
     # Extract the result_url from the response JSON
     result_url = response_json.get("result_url")
     return result_url
-    
-def getResponse(request):
-    userMessage = request.GET.get('userMessage')
-    user_language = request.GET.get('language')
-    user_accent = request.GET.get('accent')
-    
-    print("Language: ",user_language)
-    print("Accent: ", user_accent)
-    
-    completion = ask_openai(userMessage)
-    print(completion)
-    
-    translated_text = translation(completion, user_language)
-    print(translated_text)    
-    
-    id_get = video_gen(translated_text, user_accent)
-    print(id_get)
-    
-    time.sleep(30)
-    
-    get_vid = get_video(id_get)
-    print(get_vid)
-    
-    history_entry = History.objects.create(
-        user=request.user,
-        query_text=userMessage,
-        translated_text=translated_text,
-        video_url=get_vid
-    )
 
-    return HttpResponse(get_vid)
+    
+#cloudinary imports
+import cloudinary
+import cloudinary.uploader
+import cloudinary.api
+
+# Import the CloudinaryImage and CloudinaryVideo methods for the simplified syntax used in this guide
+from cloudinary import CloudinaryImage
+from cloudinary import CloudinaryVideo
+
+#Configuration
+cloudinary.config(
+    cloud_name = "dsogv65gk",
+    api_key = "542235843671834",
+    api_secret = "ht5pCWElYBkWVnb1J6HHB04lP0Q",
+)
+
+
+def upload_image(request):
+    if request.method == 'POST':
+        # Get the form data
+        user_message = request.POST.get('userMessage')
+        language = request.POST.get('languageSelect')
+        accent = request.POST.get('accentSelect')
+        user_image = request.FILES.get('userImage')
+        
+        print("User Message: ",user_message)
+        print("Language: ",language)
+        print("Accent: ", accent)
+        print("Image: ",user_image)
+
+        
+        # Upload an image
+        upload_result = cloudinary.uploader.upload(user_image, public_id="shoes")
+        print("Image_url: ", upload_result["secure_url"])
+        
+        completion = ask_openai(userMessage)
+        print(completion)
+    
+        translated_text = translation(completion, user_language)
+        print(translated_text)
+           
+        id_get = video_gen(user_message, accent, upload_result["secure_url"])
+        print(id_get)
+        
+        time.sleep(30)
+        
+        get_vid = get_video(id_get)
+        print(get_vid)
+        
+        history_entry = History.objects.create(
+            user=request.user,
+            query_text=user_message,
+            translated_text=translated_text,
+            video_url=get_vid
+        )
+    return render(request, 'video.html', {'video_url': get_vid, 'translated_text': user_message})

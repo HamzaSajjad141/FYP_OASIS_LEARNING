@@ -15,7 +15,7 @@ urlpatterns = [
    path('UpdateUser/', views.UpdateUser,name='UpdateUser'),
    path('DeleteUser/', views.DeleteUser,name='DeleteUser'),
    path('Users/', views.Users,name='Users'),
-   path('getResponse', views.getResponse, name='getResponse'),
    path('managecomplaints/', views.managecomplaints, name='managecomplaints'),
-   path('respondcomplaint/<int:complaint_id>/', views.respond_complaint_view, name='respond_complaint')
+   path('respondcomplaint/<int:complaint_id>/', views.respond_complaint_view, name='respond_complaint'),
+   path('upload/', views.upload_image, name='upload_image')
 ]

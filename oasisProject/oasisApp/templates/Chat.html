@@ -225,142 +225,37 @@
 
     <!-- Chatbot container -->
     <div id="chatbot">
-        <!-- Chatbot header -->
-        <div class="chat-header">Oasis Chatbot</div>
-        <!-- Chatbot content area -->
-        <div class="chat-content" id="chat-content"></div>
-        <!-- User input section with image upload -->
-        <div id="userInput">
-            <input type="text" id="textInput" name="userMessage" placeholder="Type your message.." />
-
-            <label for="imageInput" id="imageInputLabel">
-                <img src="{% static 'images/image-icon.png' %}" alt="Image Upload" style="width: 30px; height: auto;">
-            </label>
-
-            <input type="file" id="imageInput" accept="image/*" style="display: none;" />
-
-            <button id="buttonInput">Submit</button>
-        </div>
-
-        <!-- Language and Accent selection -->
-        <div id="userPreferences">
-            <label for="languageSelect">Select Language:</label>
-            <select id="languageSelect">
-                <option value="afr">Afrikaans</option>
-                <option value="amh">Amharic</option>
-                <option value="arb">Modern Standard Arabic</option>
-                <option value="ary">Moroccan Arabic</option>
-                <option value="arz">Egyptian Arabic</option>
-                <option value="asm">Assamese</option>
-                <option value="ast">Asturian</option>
-                <option value="azj">North Azerbaijani</option>
-                <option value="bel">Belarusian</option>
-                <option value="ben">Bengali</option>
-                <option value="bos">Bosnian</option>
-                <option value="bul">Bulgarian</option>
-                <option value="cat">Catalan</option>
-                <option value="ceb">Cebuano</option>
-                <option value="ces">Czech</option>
-                <option value="ckb">Central Kurdish</option>
-                <option value="cmn">Mandarin Chinese</option>
-                <option value="cmn_Hant">Mandarin Chinese (Hant)</option>
-                <option value="cym">Welsh</option>
-                <option value="dan">Danish</option>
-                <option value="deu">German</option>
-                <option value="ell">Greek</option>
-                <option value="eng">English</option>
-                <option value="est">Estonian</option>
-                <option value="eus">Basque</option>
-                <option value="fin">Finnish</option>
-                <option value="fra">French</option>
-                <option value="fuv">Nigerian Fulfulde</option>
-                <option value="gaz">West Central Oromo</option>
-                <option value="gle">Irish</option>
-                <option value="glg">Galician</option>
-                <option value="guj">Gujarati</option>
-                <option value="heb">Hebrew</option>
-                <option value="hin">Hindi</option>
-                <option value="hrv">Croatian</option>
-                <option value="hun">Hungarian</option>
-                <option value="hye">Armenian</option>
-                <option value="ibo">Igbo</option>
-                <option value="ind">Indonesian</option>
-                <option value="isl">Icelandic</option>
-                <option value="ita">Italian</option>
-                <option value="jav">Javanese</option>
-                <option value="jpn">Japanese</option>
-                <option value="kam">Kamba</option>
-                <option value="kan">Kannada</option>
-                <option value="kat">Georgian</option>
-                <option value="kaz">Kazakh</option>
-                <option value="kea">Kabuverdianu</option>
-                <option value="khk">Halh Mongolian</option>
-                <option value="khm">Khmer</option>
-                <option value="kir">Kyrgyz</option>
-                <option value="kor">Korean</option>
-                <option value="lao">Lao</option>
-                <option value="lit">Lithuanian</option>
-                <option value="ltz">Luxembourgish</option>
-                <option value="lug">Ganda</option>
-                <option value="luo">Luo</option>
-                <option value="lvs">Standard Latvian</option>
-                <option value="mai">Maithili</option>
-                <option value="mal">Malayalam</option>
-                <option value="mar">Marathi</option>
-                <option value="mkd">Macedonian</option>
-                <option value="mlt">Maltese</option>
-                <option value="mni">Meitei</option>
-                <option value="mya">Burmese</option>
-                <option value="nld">Dutch</option>
-                <option value="nno">Norwegian Nynorsk</option>
-                <option value="nob">Norwegian Bokmål</option>
-                <option value="npi">Nepali</option>
-                <option value="nya">Nyanja</option>
-                <option value="oci">Occitan</option>
-                <option value="ory">Odia</option>
-                <option value="pan">Punjabi</option>
-                <option value="pbt">Southern Pashto</option>
-                <option value="pes">Western Persian</option>
-                <option value="pol">Polish</option>
-                <option value="por">Portuguese</option>
-                <option value="ron">Romanian</option>
-                <option value="rus">Russian</option>
-                <option value="slk">Slovak</option>
-                <option value="slv">Slovenian</option>
-                <option value="sna">Shona</option>
-                <option value="snd">Sindhi</option>
-                <option value="som">Somali</option>
-                <option value="spa">Spanish</option>
-                <option value="srp">Serbian</option>
-                <option value="swe">Swedish</option>
-                <option value="swh">Swahili</option>
-                <option value="tam">Tamil</option>
-                <option value="tel">Telugu</option>
-                <option value="tgk">Tajik</option>
-                <option value="tgl">Tagalog</option>
-                <option value="tha">Thai</option>
-                <option value="tur">Turkish</option>
-                <option value="ukr">Ukrainian</option>
-                <option value="urd">Urdu</option>
-                <option value="uzn">Northern Uzbek</option>
-                <option value="vie">Vietnamese</option>
-                <option value="xho">Xhosa</option>
-                <option value="yor">Yoruba</option>
-                <option value="yue">Cantonese</option>
-                <option value="zlm">Colloquial Malay</option>
-                <option value="zsm">Standard Malay</option>
-                <option value="zul">Zulu</option>
-
-                <!-- Add more language options as needed -->
-            </select>
-
-            <label for="accentSelect">Select Accent:</label>
-            <select id="accentSelect">
-                <option value="Male">Male</option>
-                <option value="Female">Female</option>
-                <!-- Add more accent options as needed -->
-            </select>
-        </div>
+        <form action="{% url 'upload_image' %}" method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+            <!-- Chatbot header -->
+            <div class="chat-header">Oasis Chatbot</div>
+            <!-- Chatbot content area -->
+            <div class="chat-content" id="chat-content"></div>
+            <!-- User input section with image upload -->
+            <div id="userInput">
+                <input type="text" id="textInput" required name="userMessage" placeholder="Type your message..">
+                <label for="imageInput" id="imageInputLabel">
+                    <img src="{% static 'images/image-icon.png' %}" alt="Image Upload" style="width: 30px; height: auto;">
+                </label>
+                <input type="file" id="imageInput" required name="userImage" accept="image/*" style="display: none;">
+                <button type="submit" id="buttonInput">Submit</button>
+            </div>
+            <!-- Language and Accent selection -->
+            <div id="userPreferences">
+                <label for="languageSelect">Select Language:</label>
+                <select id="languageSelect" name="languageSelect">
+                    <option value="eng">English</option>
+                    <!-- Add more language options as needed -->
+                </select>
+                <label for="accentSelect">Select Accent:</label>
+                <select id="accentSelect" name="accentSelect">
+                    <option value="Male">Male</option>
+                    <option value="Female">Female</option>
+                    <!-- Add more accent options as needed -->
+                </select>
+            </div>
+        </form>
+        
     </div>
 
     <!-- Footer from the homepage -->
@@ -369,47 +264,7 @@
     </footer>
 
     <!-- JavaScript for the chatbot functionality -->
-    <script src="https://code.jquery.com/jquery-3.7.1.js" integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4=" crossorigin="anonymous"></script>
-    <script>
-        function getUserResponse() {
-            var userText = $('#textInput').val();
-            var language = $('#languageSelect').val();
-            var accent = $('#accentSelect').val();
-
-            $('#textInput').val("");
-            $('#chat-content').append("<code><div class='message userText'> User: <span>" + userText + "</span></div></code>");
-
-            var selectedImage = $('#imageInput').prop('files')[0];
-
-            if (selectedImage) {
-                var imageURL = URL.createObjectURL(selectedImage);
-                var imageHTML = "<code><div class='message userText'><img src='" + imageURL + "' alt='User Image'></div></code>";
-                $('#chat-content').append(imageHTML);
-            }
-
-            // AJAX request to get response from the server
-            $.get('/getResponse', { userMessage: userText, language: language, accent: accent }).done(function (data) {
-                
-                var returnedMessage = "<code><div class='message botText'>Chatbot: <span><video controls><source src='" + data + "' type='video/mp4'></video></span></div></code>";
-                
-                //var returnedMessage = "<code><div class='message botText'>Chatbot: <span><a href='" + data + "' target='_blank'>Click here to watch the video</a></span></div></code>";
-                //var returnedMessage = "<code><div class='message botText'>Chatbot: <span>" + data + "</span></div></code>";
-                $('#chat-content').append(returnedMessage);
-                $('#chat-content').scrollTop($('#chat-content')[0].scrollHeight); // Auto-scroll to the bottom
-            });
-        }
-
-        // Event handler for the button click
-        $('#buttonInput').click(function () {
-            getUserResponse();
-        });
-
-        // Event handler for image input change
-        $('#imageInput').change(function () {
-            var fileName = $(this).val().split('\\').pop(); // Get the file name
-            $('#textInput').val(fileName); // Display the file name in the text input
-        });
-    </script>
+    
 </body>
 
 </html>
