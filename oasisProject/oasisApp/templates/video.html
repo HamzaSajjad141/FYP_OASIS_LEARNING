@@ -1,5 +1,6 @@
 {% load static %}
 <!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 
 <head>
@@ -13,7 +14,7 @@
             padding: 0;
             display: flex;
             flex-direction: column;
-            min-height: 100vh; /* Use min-height instead of height for the body */
+            min-height: 100vh;
             background-color: #E4EEF8;
         }
 
@@ -67,11 +68,21 @@
             border-radius: 15px;
             box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
             overflow: hidden;
-            width: 50%;
-            margin: 20px auto;
             display: flex;
-            flex-direction: column;
             height: 100%;
+            margin: 20px;
+        }
+
+        .video-summary {
+            width: 40%;
+            overflow-y: auto; /* Add scrollbar when content exceeds the height */
+            max-height: 500px; /* Set maximum height */
+            padding: 20px;
+        }
+
+        .video-player {
+            width: 60%;
+            padding: 20px;
         }
 
         .video-title {
@@ -79,42 +90,20 @@
             color: white;
             padding: 20px;
             text-align: center;
-            font-family: san-sarif;
+            font-family: sans-serif;
             font-size: 1.8em;
             border-bottom: 2px solid #fff;
-        }
-
-        .video-player {
-            width: 100%;
-            height: 400px;
-            margin-bottom: 20px;
-        }
-
-        .recommendations {
-            display: flex;
-            justify-content: center;
-            flex-wrap: wrap;
-        }
-
-        .recommendation-card {
-            background-color: #f0f0f0;
-            border-radius: 15px;
-            margin: 10px;
-            padding: 15px;
-            width: 200px;
-            text-align: center;
-            transition: background-color 0.3s ease-in-out;
-        }
-
-        .recommendation-card:hover {
-            background-color: #0d47a1;
+            margin-top: 0;
+            border-top-left-radius: 15px;
+            border-top-right-radius: 15px;
         }
 
         .footer {
             background-color: #293241;
             color: white;
-            padding: 15px;
+            padding: 2px;
             text-align: center;
+            margin-top: auto;
         }
 
         .footer-copyright {
@@ -142,18 +131,18 @@
 
     <!-- Video container -->
     <div class="video-container">
-        <div class="video-title">Creative Video Title</div>
+        <!-- Video Player -->
         <div class="video-player">
+            <div class="video-title">Creative Video Title</div>
             <!-- Your video player embed code or link goes here -->
-            <iframe width="100%" height="100%" src="https://www.youtube.com/embed/your-video-id" frameborder="0" allowfullscreen></iframe>
+            <iframe width="100%" height="450px" src="https://www.youtube.com/embed/your-video-id" frameborder="0" allowfullscreen></iframe>
         </div>
 
-        <!-- Recommended Topics -->
-        <div class="recommendations">
-            <div class="recommendation-card">Topic 1</div>
-            <div class="recommendation-card">Topic 2</div>
-            <div class="recommendation-card">Topic 3</div>
-            <!-- Add more recommendation cards as needed -->
+        <!-- Video Summary -->
+        <div class="video-summary">
+            <h2>Video Summary</h2>
+            <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.</p>
+            <!-- Add more content as needed -->
         </div>
     </div>
 

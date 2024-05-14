@@ -25,10 +25,16 @@ def Home(request):
 
 
 def Login(request):
+    if request.user.is_authenticated:
+        # If the user is already logged in, redirect to the home page or any other appropriate page
+        if request.user.is_superuser:
+            return redirect('Dashboard')  # Redirect to admin dashboard
+        else:
+            return redirect('Home')  # Redirect to home page for regular users
+
     if request.method == 'POST':
         username = request.POST.get('username')
         passw = request.POST.get('password')
-        print(username, passw)
         user = authenticate(request, username=username, password=passw)
         if user is not None:
             login(request, user)
@@ -36,11 +42,10 @@ def Login(request):
                 return JsonResponse({'message': 'success', 'url': 'Dashboard'})  # Redirect to admin dashboard
             else:
                 return JsonResponse({'message': 'success', 'url': 'Home'})  # Redirect to home page for regular users
-            #return JsonResponse({'message': 'success', 'url': 'Home'})
         else:
             return JsonResponse({'message': 'Invalid Credentials','url': ''})
 
-    return render(request, "login.html")
+    return render(request, "login.html"
 
 
 def Register(request):
