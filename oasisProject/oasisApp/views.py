@@ -11,6 +11,7 @@ from django.shortcuts import render, get_object_or_404
 from django.http import HttpResponse, HttpResponseRedirect
 
 
+
 # Decorator to check if user is superuser
 def superuser_required(view_func):
     decorated_view_func = user_passes_test(
@@ -254,44 +255,9 @@ def respond_complaint_view(request, complaint_id):
     return render(request, 'respondcomplaint.html', {'complaint': complaint})
 
 
-
-
-
-# import openai
-
-# openai_api_key = "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"
-# openai.api_key = openai_api_key
-
-# def ask_openai(userMessage):
-#     completion = openai.chat.completions.create(
-#     model="gpt-3.5-turbo",
-#     messages=[
-#         {"role": "system", "content": "You are a helpful assistant."},
-#         {"role": "user", "content": userMessage}
-#     ])
-    
-#     answer = completion.choices[0].message.content
-    
-#     return answer
-
-# def getResponse(request):
-#     userMessage = request.GET.get('userMessage')
-    
-#     completion = ask_openai(userMessage)
-#     print(completion)
-    
-#     return HttpResponse(completion)
-
-
-
-
-
-
-
-import openai
-
-openai_api_key = "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"
-openai.api_key = openai_api_key
+import os 
+from openai import AzureOpenAI
+from dotenv import load_dotenv
 
 from transformers import AutoProcessor, SeamlessM4Tv2Model
 processor = AutoProcessor.from_pretrained("facebook/seamless-m4t-v2-large")
@@ -392,6 +358,60 @@ cloudinary.config(
     api_secret = "ht5pCWElYBkWVnb1J6HHB04lP0Q",
 )
 
+def ask_openai(userMessage):
+    
+    userMessage = f'Output me only a prompt to give to gpt so he can asnwer the question "{ userMessage }". Only prompt and do not add apostrophes at start or end of the prompt.'
+    
+    azure_openai_endpoint = os.getenv("AZURE_OPENAI_ENDPOINT")
+    azure_openai_key = os.getenv("AZURE_OPENAI_KEY")
+    azure_openai_development = os.getenv("AZURE_OPENAI_DEVELOPMENT") 
+    print("userMessage: ", userMessage, end="\n\n")
+    
+    #azue openai
+    client = AzureOpenAI(
+        azure_endpoint = azure_openai_endpoint,
+        api_key= azure_openai_key,
+        api_version= "2024-02-15-preview"            
+    )
+    
+    system_message = "You are an AI assistant that helps people find information."
+    
+    messages_array = [{"role": "system", "content": system_message}]
+        
+    # Add code to send request...
+    # Send request to Azure OpenAI model
+    
+    #ask gpt to generate prompt
+    messages_array.append({"role": "user", "content": userMessage})
+    
+    response = client.chat.completions.create(
+        model= azure_openai_development,
+        temperature= 0.7,
+        max_tokens= 1200,
+        messages= messages_array
+    )
+    generated_prompt = response.choices[0].message.content
+    generated_prompt = generated_prompt + ". Also suggest what topics or info to explore next related the my given question."
+    print("Generated Prompt: ", generated_prompt, end="\n\n")
+    
+    #ask gpt to give answer
+    messages_array.append({"role": "user", "content": generated_prompt})
+    
+    response = client.chat.completions.create(
+        model= azure_openai_development,
+        temperature= 0.7,
+        max_tokens= 1000,
+        messages= messages_array
+    )
+    generated_answer = response.choices[0].message.content
+    
+    #Add generated text to messages array
+    messages_array.append({"role": "system", "content": generated_answer})
+    
+    return generated_answer
+
+
+
 
 def upload_image(request):
     if request.method == 'POST':
@@ -411,10 +431,10 @@ def upload_image(request):
         upload_result = cloudinary.uploader.upload(user_image, public_id="shoes")
         print("Image_url: ", upload_result["secure_url"])
         
-        completion = ask_openai(userMessage)
+        completion = ask_openai(user_message)
         print(completion)
     
-        translated_text = translation(completion, user_language)
+        translated_text = translation(completion, language)
         print(translated_text)
            
         id_get = video_gen(user_message, accent, upload_result["secure_url"])
