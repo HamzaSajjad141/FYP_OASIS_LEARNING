@@ -324,10 +324,10 @@ def video_gen(text_to_video, language, user_voice, image):
         voice = "ur-PK-AsadNeural"
     elif language == "urd" and user_voice == "Female":
         voice = "ur-PK-UzmaNeural"
-    elif user_voice == "Male":
+    elif language == "hin" and user_voice == "Male":
         voice = "hi-IN-MadhurNeural"
-    elif user_voice == "Female":
-        voice = "hi-IN-AnanyaNeural"
+    elif language == "hin" and user_voice == "Female":
+        voice = "hi-IN-KavyaNeural"
         
         
     url = "https://api.d-id.com/talks"
@@ -340,7 +340,7 @@ def video_gen(text_to_video, language, user_voice, image):
                 "type": "microsoft",
                 "voice_id": voice
             },
-            "input": text_to_video
+            "input": str(text_to_video)
         },
         "config": {
             "fluent": "false",
@@ -416,7 +416,7 @@ def upload_image(request):
         translated_text = translation(completion, language)
         print(translated_text)
            
-        id_get = video_gen(translated_text,language, accent, upload_result["secure_url"])
+        id_get = video_gen(translated_text, language, accent, upload_result["secure_url"])
         print(id_get)
         
         time.sleep(30)
