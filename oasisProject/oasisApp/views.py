@@ -327,7 +327,35 @@ def video_gen(text_to_video, language, user_voice, image):
     elif language == "hin" and user_voice == "Male":
         voice = "hi-IN-MadhurNeural"
     elif language == "hin" and user_voice == "Female":
-        voice = "hi-IN-KavyaNeural"
+        voice = "hi-IN-AnanyaNeural"
+    elif language == "deu" and user_voice == "Male":
+        voice = "de-DE-ConradNeural"
+    elif language == "deu" and user_voice == "Female":
+        voice = "de-DE-ElkeNeural"
+    elif language == "arb" and user_voice == "Male":
+        voice = "ar-SA-HamedNeural"
+    elif language == "arb" and user_voice == "Female":
+        voice = "ar-SA-ZariyahNeural"
+    elif language == "ces" and user_voice == "Male":
+        voice = "cs-CZ-AntoninNeural"
+    elif language == "ces" and user_voice == "Female":
+        voice = "cs-CZ-VlastaNeural" 
+    elif language == "ben" and user_voice == "Male":
+        voice = "bn-IN-BashkarNeural"
+    elif language == "ben" and user_voice == "Female":
+        voice = "bn-IN-TanishaaNeural"
+    elif language == "cat" and user_voice == "Male":
+        voice = "ca-ES-EnricNeural"
+    elif language == "cat" and user_voice == "Female":
+        voice = "ca-ES-JoanaNeural" 
+    elif language == "cmn" and user_voice == "Male":
+        voice = "zh-CN-YunyangNeural"
+    elif language == "cmn" and user_voice == "Female":
+        voice = "zh-CN-XiaoxiaoNeural"
+    elif language == "dan" and user_voice == "Male":
+        voice = "da-DK-JeppeNeural"
+    elif language == "dan" and user_voice == "Female":
+        voice = "da-DK-ChristelNeural"
         
         
     url = "https://api.d-id.com/talks"
