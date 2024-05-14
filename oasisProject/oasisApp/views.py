@@ -356,6 +356,98 @@ def video_gen(text_to_video, language, user_voice, image):
         voice = "da-DK-JeppeNeural"
     elif language == "dan" and user_voice == "Female":
         voice = "da-DK-ChristelNeural"
+    elif language == "rus" and user_voice == "Male":
+        voice = "ru-RU-DmitryNeural"
+    elif language == "rus" and user_voice == "Female":
+        voice = "ru-RU-SvetlanaNeural"
+    elif language == "nld" and user_voice == "Male":
+        voice = "nl-NL-MaartenNeural"
+    elif language == "nld" and user_voice == "Female":
+        voice = "nl-NL-FennaNeural"
+    elif language == "est" and user_voice == "Male":
+        voice = "et-EE-KertNeural"
+    elif language == "est" and user_voice == "Female":
+        voice = "et-EE-AnuNeural"
+    elif language == "fin" and user_voice == "Male":
+        voice = "fi-FI-HarriNeural"
+    elif language == "fin" and user_voice == "Female":
+        voice = "fi-FI-SelmaNeural"
+    elif language == "fra" and user_voice == "Male":
+        voice = "fr-FR-HenriNeural"
+    elif language == "fra" and user_voice == "Female":
+        voice = "fr-FR-DeniseNeural"
+    elif language == "ind" and user_voice == "Male":
+        voice = "id-ID-ArdiNeural"
+    elif language == "ind" and user_voice == "Female":
+        voice = "id-ID-GadisNeural"
+    elif language == "ita" and user_voice == "Male":
+        voice = "it-IT-DiegoNeural"
+    elif language == "ita" and user_voice == "Female":
+        voice = "it-IT-FiammaNeural"
+    elif language == "mlt" and user_voice == "Male":
+        voice = "mt-MT-JosephNeural"
+    elif language == "mlt" and user_voice == "Female":
+        voice = "mt-MT-GraceNeural"
+    elif language == "jpn" and user_voice == "Male":
+        voice = "ja-JP-MasaruMultilingualNeural"
+    elif language == "jpn" and user_voice == "Female":
+        voice = "ja-JP-AoiNeural"
+    elif language == "kor" and user_voice == "Male":
+        voice = "ko-KR-InJoonNeural"
+    elif language == "kor" and user_voice == "Female":
+        voice = "ko-KR-SunHiNeural"
+    elif language == "pol" and user_voice == "Male":
+        voice = "pl-PL-MarekNeural"
+    elif language == "pol" and user_voice == "Female":
+        voice = "pl-PL-ZofiaNeural"
+    elif language == "por" and user_voice == "Male":
+        voice = "pt-PT-DuarteNeural"
+    elif language == "por" and user_voice == "Female":
+        voice = "pt-PT-RaquelNeural"
+    elif language == "ron" and user_voice == "Male":
+        voice = "ro-RO-EmilNeural"
+    elif language == "ron" and user_voice == "Female":
+        voice = "ro-RO-AlinaNeural"
+    elif language == "slk" and user_voice == "Male":
+        voice = "sk-SK-LukasNeural"
+    elif language == "slk" and user_voice == "Female":
+        voice = "sk-SK-ViktoriaNeural"
+    elif language == "spa" and user_voice == "Male":
+        voice = "es-ES-SaulNeural"
+    elif language == "spa" and user_voice == "Female":
+        voice = "es-ES-LaiaNeural"
+    elif language == "swe" and user_voice == "Male":
+        voice = "sv-SE-MattiasNeural"
+    elif language == "swe" and user_voice == "Female":
+        voice = "sv-SE-HilleviNeural"
+    elif language == "swh" and user_voice == "Male":
+        voice = "sw-KE-RafikiNeural"
+    elif language == "swh" and user_voice == "Female":
+        voice = "sw-KE-ZuriNeural"
+    elif language == "swh" and user_voice == "Male":
+        voice = "sw-KE-RafikiNeural"
+    elif language == "swh" and user_voice == "Female":
+        voice = "sw-KE-ZuriNeural"
+    elif language == "tel" and user_voice == "Male":
+        voice = "te-IN-MohanNeural"
+    elif language == "tel" and user_voice == "Female":
+        voice = "te-IN-ShrutiNeural"
+    elif language == "tha" and user_voice == "Male":
+        voice = "th-TH-NiwatNeural"
+    elif language == "tha" and user_voice == "Female":
+        voice = "th-TH-PremwadeeNeural"
+    elif language == "tur" and user_voice == "Male":
+        voice = "tr-TR-AhmetNeural"
+    elif language == "tur" and user_voice == "Female":
+        voice = "tr-TR-EmelNeural"
+    elif language == "ukr" and user_voice == "Male":
+        voice = "uk-UA-OstapNeural"
+    elif language == "ukr" and user_voice == "Female":
+        voice = "uk-UA-PolinaNeural"
+    elif language == "vie" and user_voice == "Male":
+        voice = "vi-VN-NamMinhNeural"
+    elif language == "vie" and user_voice == "Female":
+        voice = "vi-VN-HoaiMyNeural"
         
         
     url = "https://api.d-id.com/talks"
