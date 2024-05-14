@@ -127,6 +127,7 @@
             border-top-left-radius: 15px;
             border-top-right-radius: 15px;
             margin-top: auto;
+            width: 100%;
         }
 
         #textInput {
@@ -164,8 +165,10 @@
 
         #userPreferences {
             display: flex;
-            justify-content:left;
+            justify-content: center;
+            align-items: center;
             margin: 10px;
+            width: 100%;
         }
 
         label {
@@ -198,10 +201,45 @@
             font-family: 'Poppins', sans-serif;
             padding: 2px;
             text-align: center;
+            width: 100%;
         }
 
         .footer-copyright {
             font-size: 1em;
+        }
+
+        .user-input-section {
+            text-align: center;
+            margin-bottom: 20px;
+            width: 100%;
+        }
+
+        .section-title {
+            margin-bottom: 10px;
+            font-size: 1.2em;
+        }
+
+        /* Style for loading overlay */
+        #loading-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(255, 255, 255, 0.7);
+            z-index: 9999;
+            display: none;
+        }
+
+        #loading-message {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
         }
     </style>
 </head>
@@ -231,18 +269,22 @@
             <div class="chat-header">Oasis Chatbot</div>
             <!-- Chatbot content area -->
             <div class="chat-content" id="chat-content"></div>
-            <!-- User input section with image upload -->
-            <div id="userInput">
+            <!-- Enter Query -->
+            <div class="user-input-section">
+                <h2 class="section-title">Enter Query</h2>
                 <input type="text" id="textInput" required name="userMessage" placeholder="Type your message..">
+            </div>
+            <!-- Upload Image -->
+            <div class="user-input-section">
+                <h2 class="section-title">Upload Image</h2>
                 <label for="imageInput" id="imageInputLabel">
+                    <input type="file" id="imageInput" required name="userImage" accept="image/*" style="display: none;">
                     <img src="{% static 'images/image-icon.png' %}" alt="Image Upload" style="width: 30px; height: auto;">
                 </label>
-                <input type="file" id="imageInput" required name="userImage" accept="image/*" style="display: none;">
-                <button type="submit" id="buttonInput">Submit</button>
             </div>
-            <!-- Language and Accent selection -->
-            <div id="userPreferences">
-                <label for="languageSelect">Select Language:</label>
+            <!-- Select Language -->
+            <div class="user-input-section">
+                <h2 class="section-title">Select Language</h2>
                 <select id="languageSelect" name="languageSelect">
                     <option value="eng">English</option>
                     <option value="arb">Modern Standard Arabic</option>
@@ -277,18 +319,26 @@
                     <option value="ukr">Ukrainian</option>
                     <option value="urd">Urdu</option>
                     <option value="vie">Vietnamese</option>
-                
-                    <!-- Add more language options as needed -->
                 </select>
-                <label for="accentSelect">Select Accent:</label>
+            </div>
+            <!-- Select Accent -->
+            <div class="user-input-section">
+                <h2 class="section-title">Select Accent</h2>
                 <select id="accentSelect" name="accentSelect">
                     <option value="Male">Male</option>
                     <option value="Female">Female</option>
-                    <!-- Add more accent options as needed -->
                 </select>
             </div>
+            <!-- Submit Button -->
+            <div class="user-input-section">
+                <button type="submit" id="buttonInput">Submit</button>
+            </div>
         </form>
-        
+    </div>
+
+    <!-- Loading overlay -->
+    <div id="loading-overlay">
+        <div id="loading-message">Loading, please wait...</div>
     </div>
 
     <!-- Footer from the homepage -->
@@ -296,8 +346,18 @@
         <p class="footer-copyright">&copy; Oasis Learning 2023</p>
     </footer>
 
-    <!-- JavaScript for the chatbot functionality -->
-    
+    <!-- Your existing JavaScript code or add a script tag here -->
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            var form = document.querySelector('form');
+            var loadingOverlay = document.getElementById('loading-overlay');
+
+            form.addEventListener('submit', function () {
+                // Show loading overlay when form is submitted
+                loadingOverlay.style.display = 'block';
+            });
+        });
+    </script>
 </body>
 
 </html>

@@ -40,9 +40,9 @@ def Login(request):
         if user is not None:
             login(request, user)
             if user.is_superuser:
-                return JsonResponse({'message': 'success', 'url': 'Dashboard'})  # Redirect to admin dashboard
+                return JsonResponse({'message': 'successfully Login', 'url': 'Dashboard'})  # Redirect to admin dashboard
             else:
-                return JsonResponse({'message': 'success', 'url': 'Home'})  # Redirect to home page for regular users
+                return JsonResponse({'message': 'successfully Login', 'url': 'Home'})  # Redirect to home page for regular users
         else:
             return JsonResponse({'message': 'Invalid Credentials','url': ''})
 
@@ -268,7 +268,7 @@ import requests
 import time
 
 def ask_openai(userMessage):
-    userMessage = "Can you help me with the question " + userMessage + "? Also, could you suggest some related topics or areas for further exploration?"
+    userMessage = "Can you help me with the question " + userMessage + "? Also, could you suggest some related topics or areas for further exploration? in paragraph form"
     
     azure_openai_endpoint = os.getenv("AZURE_OPENAI_ENDPOINT")
     azure_openai_key = os.getenv("AZURE_OPENAI_KEY")
