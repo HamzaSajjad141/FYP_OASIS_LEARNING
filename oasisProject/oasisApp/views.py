@@ -9,7 +9,27 @@ from django.contrib import messages
 from .models import Complaint , History
 from django.shortcuts import render, get_object_or_404
 from django.http import HttpResponse, HttpResponseRedirect
+#cloudinary imports
+import cloudinary
+import cloudinary.uploader
+import cloudinary.api
 
+# Import the CloudinaryImage and CloudinaryVideo methods for the simplified syntax used in this guide
+from cloudinary import CloudinaryImage
+from cloudinary import CloudinaryVideo
+
+
+import os 
+from openai import AzureOpenAI
+from dotenv import load_dotenv
+load_dotenv()
+import requests
+import time
+
+
+from transformers import AutoProcessor, SeamlessM4Tv2Model
+processor = AutoProcessor.from_pretrained("facebook/seamless-m4t-v2-large")
+model = SeamlessM4Tv2Model.from_pretrained("facebook/seamless-m4t-v2-large")
 
 
 # Decorator to check if user is superuser
@@ -255,17 +275,11 @@ def respond_complaint_view(request, complaint_id):
     return render(request, 'respondcomplaint.html', {'complaint': complaint})
 
 
-import os 
-from openai import AzureOpenAI
-from dotenv import load_dotenv
-load_dotenv()
 
-from transformers import AutoProcessor, SeamlessM4Tv2Model
-processor = AutoProcessor.from_pretrained("facebook/seamless-m4t-v2-large")
-model = SeamlessM4Tv2Model.from_pretrained("facebook/seamless-m4t-v2-large")
 
-import requests
-import time
+
+
+
 
 def ask_openai(userMessage):
     userMessage = "Can you help me with the question " + userMessage + "? Also, could you suggest some related topics or areas for further exploration? in paragraph form"
@@ -496,14 +510,7 @@ def get_video(id):
     return result_url
 
     
-#cloudinary imports
-import cloudinary
-import cloudinary.uploader
-import cloudinary.api
 
-# Import the CloudinaryImage and CloudinaryVideo methods for the simplified syntax used in this guide
-from cloudinary import CloudinaryImage
-from cloudinary import CloudinaryVideo
 
 #Configuration
 cloudinary.config(
